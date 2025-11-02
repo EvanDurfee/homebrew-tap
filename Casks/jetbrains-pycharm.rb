@@ -1,6 +1,6 @@
 cask "jetbrains-pycharm" do
-  arch intel: ""
-       arm: "-aarch64"
+  arch intel: "",
+       arm:   "-aarch64"
   os linux: "linux"
 
   version "2025.2.4,252.27397.106"
