@@ -42,12 +42,12 @@ cask "jetbrains-pycharm" do
     FileUtils.mkdir_p("#{Dir.home}/.local/share/icons")
     File.write("#{staged_path}/pycharm.desktop", <<~EOS)
       [Desktop Entry]
-      Name=PyCharm
       Version=1.0
-      Icon=pycharm
-      Exec=#{HOMEBREW_PREFIX}/bin/pycharm -Dawt.toolkit.name=WLToolkit %u
-      Type=Application
+      Name=PyCharm
       Comment=JetBrains Python IDE
+      Exec=#{HOMEBREW_PREFIX}/bin/pycharm -Dawt.toolkit.name=WLToolkit %u
+      Icon=pycharm
+      Type=Application
       Categories=Development;IDE;
       Keywords=jetbrains;ide;code;python;
       Terminal=false
@@ -59,5 +59,6 @@ cask "jetbrains-pycharm" do
   zap trash: [
     "#{Dir.home}/.config/JetBrains/PyCharm#{version.major_minor}",
     "#{Dir.home}/.local/share/JetBrains/PyCharm#{version.major_minor}",
+    "#{Dir.home}/.cache/JetBrains/PyCharm#{version.major_minor}",
   ]
 end
