@@ -1,0 +1,30 @@
+name: Homebrew Bump
+# See https://github.com/Homebrew/homebrew-cask/blob/main/.github/workflows/autobump.yml
+# Also https://github.com/ublue-os/homebrew-tap/blob/main/.github/workflows/bump.yml
+
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 3,15 * * *" # daily at 03:00 and 15:00 UTC
+
+jobs:
+  bump:
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - name: Set up Homebrew
+        uses: Homebrew/actions/setup-homebrew@main
+
+      - name: Configure git
+        uses: Homebrew/actions/git-user-config@main
+
+      - name: Bump packages
+        env:
+          HOMEBREW_DEVELOPER: 1
+          HOMEBREW_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          brew bump --tap ${{ github.repository }} --open-pr --no-fork
