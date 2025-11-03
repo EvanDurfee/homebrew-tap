@@ -49,7 +49,7 @@ cask "jetbrains-pycharm" do
       Icon=pycharm
       Type=Application
       Categories=Development;IDE;
-      Keywords=jetbrains;ide;code;python;
+      Keywords=jetbrains;ide;python;
       Terminal=false
       StartupWMClass=jetbrains-pycharm
       StartupNotify=true
