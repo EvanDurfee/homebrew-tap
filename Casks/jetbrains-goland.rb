@@ -28,12 +28,12 @@ cask "jetbrains-goland" do
   auto_updates false
   conflicts_with cask: "jetbrains-toolbox"
 
-  binary "goland-#{version.csv.first}/bin/goland"
+  binary "GoLand-#{version.csv.first}/bin/goland"
   artifact "goland.desktop",
            target: "#{Dir.home}/.local/share/applications/goland.desktop"
-  artifact "goland-#{version.csv.first}/bin/goland.svg",
+  artifact "GoLand-#{version.csv.first}/bin/goland.svg",
            target: "#{Dir.home}/.local/share/icons/goland.svg"
-  artifact "goland-#{version.csv.first}/bin/goland.png",
+  artifact "GoLand-#{version.csv.first}/bin/goland.png",
            target: "#{Dir.home}/.local/share/icons/goland.png"
 
   preflight do
