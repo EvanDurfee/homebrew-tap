@@ -57,8 +57,8 @@ cask "jetbrains-pycharm" do
   end
 
   zap trash: [
+    "#{Dir.home}/.cache/JetBrains/PyCharm#{version.major_minor}",
     "#{Dir.home}/.config/JetBrains/PyCharm#{version.major_minor}",
     "#{Dir.home}/.local/share/JetBrains/PyCharm#{version.major_minor}",
-    "#{Dir.home}/.cache/JetBrains/PyCharm#{version.major_minor}",
   ]
 end
