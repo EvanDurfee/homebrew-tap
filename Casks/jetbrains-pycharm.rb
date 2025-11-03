@@ -45,7 +45,7 @@ cask "jetbrains-pycharm" do
       Name=PyCharm
       Version=1.0
       Icon=pycharm
-      Exec=#{HOMEBREW_PREFIX}/pycharm-#{version.csv.first}/bin/pycharm -Dawt.toolkit.name=WLToolkit %u
+      Exec=#{HOMEBREW_PREFIX}/bin/pycharm -Dawt.toolkit.name=WLToolkit %u
       Type=Application
       Comment=JetBrains Python IDE
       Categories=Development;IDE;
