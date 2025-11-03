@@ -3,11 +3,11 @@ cask "jetbrains-goland" do
        arm:   "-aarch64"
   os linux: "linux"
 
-  version "2025.2.4,252.27397.106"
-  sha256 x86_64_linux: "f1613a171ab07ba0e7ccd13cb537af4da8920c89cf4a13c64a3f7ae72e803701",
-         arm64_linux:  "91569e7ba9988af1aa4d9973f52dfa8af8a94f32a53faa8457c7ba17d25f43b3"
+  version "2025.2.3,252.26830.102"
+  sha256 x86_64_linux: "06d9e18cc840e5bc68db6802ed90cfd5c8629d8c434e51aee6e4a93dad56b3e1",
+         arm64_linux:  "09d897264b991a0f63e07b3b34f0878e2967ffbf504748881c43c2b21d638976"
 
-  url "https://download.jetbrains.com/python/goland-#{version.csv.first}#{arch}.tar.gz"
+  url "https://download.jetbrains.com/go/goland-#{version.csv.first}#{arch}.tar.gz"
   name "GoLand"
   desc "Go (golang) IDE"
   homepage "https://www.jetbrains.com/goland/"
