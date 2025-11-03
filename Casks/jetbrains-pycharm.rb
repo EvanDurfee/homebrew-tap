@@ -25,7 +25,8 @@ cask "jetbrains-pycharm" do
     end
   end
 
-  # TODO: can we disable auto-updates and use brew to update instead?
+  # The IDEs have their own auto-update, but it doesn't work with this setup
+  # seemingly due to hard-links on the artifacts
   auto_updates false
   conflicts_with cask: "jetbrains-toolbox"
 
