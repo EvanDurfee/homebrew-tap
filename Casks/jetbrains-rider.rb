@@ -28,12 +28,12 @@ cask "jetbrains-rider" do
   auto_updates false
   conflicts_with cask: "jetbrains-toolbox"
 
-  binary "Rider-#{version.csv.first}/bin/rider"
+  binary "JetBrains Rider-#{version.csv.first}/bin/rider"
   artifact "rider.desktop",
            target: "#{Dir.home}/.local/share/applications/rider.desktop"
-  artifact "Rider-#{version.csv.first}/bin/rider.svg",
+  artifact "JetBrains Rider-#{version.csv.first}/bin/rider.svg",
            target: "#{Dir.home}/.local/share/icons/rider.svg"
-  artifact "Rider-#{version.csv.first}/bin/rider.png",
+  artifact "JetBrains Rider-#{version.csv.first}/bin/rider.png",
            target: "#{Dir.home}/.local/share/icons/rider.png"
 
   preflight do
