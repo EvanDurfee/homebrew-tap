@@ -41,7 +41,7 @@ cask "jetbrains-idea" do
   preflight do
     File.write shimscript, <<~EOS
       #!/bin/sh
-      exec '#{HOMEBREW_PREFIX}/Caskroom/jetbrains-idea/#{version}/idea-IU-#{version.csv.second}/bin/idea' -Dide.no.platform.update=true "$@"
+      exec '#{HOMEBREW_PREFIX}/Caskroom/jetbrains-idea/#{version}/idea-IU-#{version.csv.second}/bin/idea' "$@"
     EOS
     FileUtils.mkdir_p("#{Dir.home}/.local/share/applications")
     FileUtils.mkdir_p("#{Dir.home}/.local/share/icons")
@@ -59,6 +59,10 @@ cask "jetbrains-idea" do
       StartupWMClass=jetbrains-idea
       StartupNotify=true
     EOS
+  end
+
+  postflight do
+    File.write("#{HOMEBREW_PREFIX}/Caskroom/jetbrains-idea/#{version}/idea-IU-#{version.csv.second}/bin/idea64.vmoptions", "-Dide.no.platform.update=true", mode: "a+")
   end
 
   zap trash: [
