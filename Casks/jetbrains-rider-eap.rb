@@ -3,9 +3,9 @@ cask "jetbrains-rider-eap" do
        arm:   "-aarch64"
   os linux: "linux"
 
-  version "2025.2.4,252.27397.121"
-  sha256 x86_64_linux: "cd428f7d6db5055cd2594c3d1ef91241843d263cb6301369d3121a847ffb6589",
-         arm64_linux:  "75c38a2bd94e31200fc4e3a6cfad83b35c65d36c9d61b9a7b208e3ec82f8c81a"
+  version "2025.3-EAP8,253.28086.30"
+  sha256 x86_64_linux: "613def95c031b4d5499d9e810a9d5e069807ffd3f8b2915d10378df7ad438017",
+         arm64_linux:  "377bd20b9aabbb50e96198f8f2cfe4ad699e35200dfdfa08ec2bb7ebfd7e4d6c"
 
   url "https://download.jetbrains.com/rider/JetBrains.Rider-#{version.csv.first}-#{version.csv.second}.Checked#{arch}.tar.gz"
   name "Rider EAP"
