@@ -3,9 +3,9 @@ cask "jetbrains-datagrip-eap" do
        arm:   "-aarch64"
   os linux: "linux"
 
-  version "2025.2.4,252.26830.46"
-  sha256 x86_64_linux: "37d0af4ec30b94c71d3507fe35b3b0bdd389903db7e2f1a8ed73353b22718476",
-         arm64_linux:  "7df40778500a599d565ba985d1583f3334903fbb731f53add526b19557208d97"
+  version "2025.3,253.27864.43"
+  sha256 x86_64_linux: "05d9cf205d2babce5e068bf6f9998503f3d49819bfd4372197ad09a5d4321f41",
+         arm64_linux:  "55b244e18068375335981e974959f4674f843f1575fa3f0aeef49f6e889c51a7"
 
   url "https://download.jetbrains.com/datagrip/datagrip-#{version.csv.second}#{arch}.tar.gz"
   name "DataGrip EAP"
