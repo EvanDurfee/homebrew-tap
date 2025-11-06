@@ -41,7 +41,7 @@ cask "jetbrains-idea" do
   preflight do
     File.write shimscript, <<~EOS
       #!/bin/sh
-      exec '#{prefix}/idea-IU-#{version.csv.second}/bin/idea' -Dide.no.platform.update=true "$@"
+      exec '#{HOMEBREW_PREFIX}/Caskroom/jetbrains-idea/#{version}/idea-IU-#{version.csv.second}/bin/idea' -Dide.no.platform.update=true "$@"
     EOS
     FileUtils.mkdir_p("#{Dir.home}/.local/share/applications")
     FileUtils.mkdir_p("#{Dir.home}/.local/share/icons")

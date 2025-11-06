@@ -41,7 +41,7 @@ cask "jetbrains-datagrip-eap" do
   preflight do
     File.write shimscript, <<~EOS
       #!/bin/sh
-      exec '#{prefix}/DataGrip-#{version.csv.second}/bin/datagrip' -Dide.no.platform.update=true "$@"
+      exec '#{HOMEBREW_PREFIX}/Caskroom/jetbrains-datagrip-eap/#{version}/DataGrip-#{version.csv.second}/bin/datagrip' -Dide.no.platform.update=true "$@"
     EOS
     FileUtils.mkdir_p("#{Dir.home}/.local/share/applications")
     FileUtils.mkdir_p("#{Dir.home}/.local/share/icons")
