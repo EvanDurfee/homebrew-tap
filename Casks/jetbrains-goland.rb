@@ -44,7 +44,7 @@ cask "jetbrains-goland" do
       Version=1.0
       Name=GoLand
       Comment=JetBrains Golang IDE
-      Exec=#{HOMEBREW_PREFIX}/bin/goland -Dawt.toolkit.name=WLToolkit %u
+      Exec=#{HOMEBREW_PREFIX}/bin/goland %u
       Icon=goland
       Type=Application
       Categories=Development;IDE;

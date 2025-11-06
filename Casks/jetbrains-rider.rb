@@ -44,7 +44,7 @@ cask "jetbrains-rider" do
       Version=1.0
       Name=Rider
       Comment=JetBrains .NET IDE
-      Exec=#{HOMEBREW_PREFIX}/bin/rider -Dawt.toolkit.name=WLToolkit %u
+      Exec=#{HOMEBREW_PREFIX}/bin/rider %u
       Icon=rider
       Type=Application
       Categories=Development;IDE;

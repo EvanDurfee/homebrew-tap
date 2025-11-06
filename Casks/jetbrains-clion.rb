@@ -44,7 +44,7 @@ cask "jetbrains-clion" do
       Version=1.0
       Name=CLion
       Comment=JetBrains C and C++ IDE
-      Exec=#{HOMEBREW_PREFIX}/bin/clion -Dawt.toolkit.name=WLToolkit %u
+      Exec=#{HOMEBREW_PREFIX}/bin/clion %u
       Icon=clion
       Type=Application
       Categories=Development;IDE;

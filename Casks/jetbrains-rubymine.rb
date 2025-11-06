@@ -44,7 +44,7 @@ cask "jetbrains-rubymine" do
       Version=1.0
       Name=RubyMine
       Comment=JetBrains Ruby on Rails IDE
-      Exec=#{HOMEBREW_PREFIX}/bin/rubymine -Dawt.toolkit.name=WLToolkit %u
+      Exec=#{HOMEBREW_PREFIX}/bin/rubymine %u
       Icon=rubymine
       Type=Application
       Categories=Development;IDE;

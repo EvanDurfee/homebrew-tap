@@ -44,7 +44,7 @@ cask "jetbrains-rustrover" do
       Version=1.0
       Name=RustRover
       Comment=JetBrains Rust IDE
-      Exec=#{HOMEBREW_PREFIX}/bin/rustrover -Dawt.toolkit.name=WLToolkit %u
+      Exec=#{HOMEBREW_PREFIX}/bin/rustrover %u
       Icon=rustrover
       Type=Application
       Categories=Development;IDE;

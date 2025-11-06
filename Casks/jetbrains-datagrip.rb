@@ -44,7 +44,7 @@ cask "jetbrains-datagrip" do
       Version=1.0
       Name=DataGrip
       Comment=JetBrains Databases and SQL IDE
-      Exec=#{HOMEBREW_PREFIX}/bin/datagrip -Dawt.toolkit.name=WLToolkit %u
+      Exec=#{HOMEBREW_PREFIX}/bin/datagrip %u
       Icon=datagrip
       Type=Application
       Categories=Development;IDE;

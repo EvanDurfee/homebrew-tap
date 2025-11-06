@@ -44,7 +44,7 @@ cask "jetbrains-idea" do
       Version=1.0
       Name=Intellij IDEA
       Comment=JetBrains Java IDE
-      Exec=#{HOMEBREW_PREFIX}/bin/idea -Dawt.toolkit.name=WLToolkit %u
+      Exec=#{HOMEBREW_PREFIX}/bin/idea %u
       Icon=idea
       Type=Application
       Categories=Development;IDE;
