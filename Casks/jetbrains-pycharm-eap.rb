@@ -30,7 +30,9 @@ cask "jetbrains-pycharm-eap" do
   auto_updates false
   conflicts_with cask: ["jetbrains-toolbox", "jetbrains-pycharm"]
 
-  binary "pycharm-#{version.csv.second}/bin/pycharm"
+  # shim script (https://github.com/Homebrew/homebrew-cask/issues/18809)
+  shimscript = "#{staged_path}/pycharm.wrapper.sh"
+  binary shimscript, target: "pycharm"
   artifact "pycharm.desktop",
            target: "#{Dir.home}/.local/share/applications/pycharm.desktop"
   artifact "pycharm-#{version.csv.second}/bin/pycharm.svg",
@@ -39,6 +41,11 @@ cask "jetbrains-pycharm-eap" do
            target: "#{Dir.home}/.local/share/icons/pycharm.png"
 
   preflight do
+    File.write("#{staged_path}/pycharm-#{version.csv.second}/bin/pycharm64.vmoptions", "-Dide.no.platform.update=true\n", mode: "a+")
+    File.write shimscript, <<~EOS
+      #!/bin/sh
+      exec '#{HOMEBREW_PREFIX}/Caskroom/jetbrains-pycharm-eap/#{version}/pycharm-#{version.csv.second}/bin/pycharm' "$@"
+    EOS
     FileUtils.mkdir_p("#{Dir.home}/.local/share/applications")
     FileUtils.mkdir_p("#{Dir.home}/.local/share/icons")
     File.write("#{staged_path}/pycharm.desktop", <<~EOS)

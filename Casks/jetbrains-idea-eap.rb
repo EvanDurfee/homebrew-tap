@@ -28,7 +28,9 @@ cask "jetbrains-idea-eap" do
   auto_updates false
   conflicts_with cask: ["jetbrains-toolbox", "jetbrains-idea"]
 
-  binary "idea-IU-#{version.csv.second}/bin/idea"
+  # shim script (https://github.com/Homebrew/homebrew-cask/issues/18809)
+  shimscript = "#{staged_path}/idea.wrapper.sh"
+  binary shimscript, target: "idea"
   artifact "idea.desktop",
            target: "#{Dir.home}/.local/share/applications/idea.desktop"
   artifact "idea-IU-#{version.csv.second}/bin/idea.svg",
@@ -37,6 +39,11 @@ cask "jetbrains-idea-eap" do
            target: "#{Dir.home}/.local/share/icons/idea.png"
 
   preflight do
+    File.write("#{staged_path}/idea-IU-#{version.csv.second}/bin/idea64.vmoptions", "-Dide.no.platform.update=true\n", mode: "a+")
+    File.write shimscript, <<~EOS
+      #!/bin/sh
+      exec '#{HOMEBREW_PREFIX}/Caskroom/jetbrains-idea-eap/#{version}/idea-IU-#{version.csv.second}/bin/idea' "$@"
+    EOS
     FileUtils.mkdir_p("#{Dir.home}/.local/share/applications")
     FileUtils.mkdir_p("#{Dir.home}/.local/share/icons")
     File.write("#{staged_path}/idea.desktop", <<~EOS)

@@ -28,7 +28,9 @@ cask "jetbrains-clion" do
   auto_updates false
   conflicts_with cask: ["jetbrains-toolbox", "jetbrains-clion-eap"]
 
-  binary "clion-#{version.csv.first}/bin/clion"
+  # shim script (https://github.com/Homebrew/homebrew-cask/issues/18809)
+  shimscript = "#{staged_path}/clion.wrapper.sh"
+  binary shimscript, target: "clion"
   artifact "clion.desktop",
            target: "#{Dir.home}/.local/share/applications/clion.desktop"
   artifact "clion-#{version.csv.first}/bin/clion.svg",
@@ -37,6 +39,11 @@ cask "jetbrains-clion" do
            target: "#{Dir.home}/.local/share/icons/clion.png"
 
   preflight do
+    File.write("#{staged_path}/clion-#{version.csv.first}/bin/clion64.vmoptions", "-Dide.no.platform.update=true\n", mode: "a+")
+    File.write shimscript, <<~EOS
+      #!/bin/sh
+      exec '#{HOMEBREW_PREFIX}/Caskroom/jetbrains-clion/#{version}/clion-#{version.csv.first}/bin/clion' "$@"
+    EOS
     FileUtils.mkdir_p("#{Dir.home}/.local/share/applications")
     FileUtils.mkdir_p("#{Dir.home}/.local/share/icons")
     File.write("#{staged_path}/clion.desktop", <<~EOS)

@@ -28,7 +28,9 @@ cask "jetbrains-rubymine-eap" do
   auto_updates false
   conflicts_with cask: ["jetbrains-toolbox", "jetbrains-rubymine"]
 
-  binary "RubyMine-#{version.csv.second}/bin/rubymine"
+  # shim script (https://github.com/Homebrew/homebrew-cask/issues/18809)
+  shimscript = "#{staged_path}/rubymine.wrapper.sh"
+  binary shimscript, target: "rubymine"
   artifact "rubymine.desktop",
            target: "#{Dir.home}/.local/share/applications/rubymine.desktop"
   artifact "RubyMine-#{version.csv.second}/bin/rubymine.svg",
@@ -37,6 +39,11 @@ cask "jetbrains-rubymine-eap" do
            target: "#{Dir.home}/.local/share/icons/rubymine.png"
 
   preflight do
+    File.write("#{staged_path}/RubyMine-#{version.csv.second}/bin/rubymine64.vmoptions", "-Dide.no.platform.update=true\n", mode: "a+")
+    File.write shimscript, <<~EOS
+      #!/bin/sh
+      exec '#{HOMEBREW_PREFIX}/Caskroom/jetbrains-rubymine-eap/#{version}/RubyMine-#{version.csv.second}/bin/rubymine' "$@"
+    EOS
     FileUtils.mkdir_p("#{Dir.home}/.local/share/applications")
     FileUtils.mkdir_p("#{Dir.home}/.local/share/icons")
     File.write("#{staged_path}/rubymine.desktop", <<~EOS)
