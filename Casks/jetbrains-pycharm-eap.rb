@@ -7,7 +7,7 @@ cask "jetbrains-pycharm-eap" do
   sha256 x86_64_linux: "f1613a171ab07ba0e7ccd13cb537af4da8920c89cf4a13c64a3f7ae72e803701",
          arm64_linux:  "91569e7ba9988af1aa4d9973f52dfa8af8a94f32a53faa8457c7ba17d25f43b3"
 
-  url "https://download.jetbrains.com/python/pycharm-#{version.csv.first}#{arch}.tar.gz"
+  url "https://download.jetbrains.com/python/pycharm-#{version.csv.second}#{arch}.tar.gz"
   name "PyCharm EAP"
   desc "IDE for professional Python development Early Access Program"
   homepage "https://www.jetbrains.com/pycharm/nextversion"
@@ -31,12 +31,12 @@ cask "jetbrains-pycharm-eap" do
   conflicts_with cask: "jetbrains-toolbox"
   conflicts_with cask: "jetbrains-pycharm"
 
-  binary "pycharm-#{version.csv.first}/bin/pycharm"
+  binary "pycharm-#{version.csv.second}/bin/pycharm"
   artifact "pycharm.desktop",
            target: "#{Dir.home}/.local/share/applications/pycharm.desktop"
-  artifact "pycharm-#{version.csv.first}/bin/pycharm.svg",
+  artifact "pycharm-#{version.csv.second}/bin/pycharm.svg",
            target: "#{Dir.home}/.local/share/icons/pycharm.svg"
-  artifact "pycharm-#{version.csv.first}/bin/pycharm.png",
+  artifact "pycharm-#{version.csv.second}/bin/pycharm.png",
            target: "#{Dir.home}/.local/share/icons/pycharm.png"
 
   preflight do
