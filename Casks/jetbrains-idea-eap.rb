@@ -3,9 +3,9 @@ cask "jetbrains-idea-eap" do
        arm:   "-aarch64"
   os linux: "linux"
 
-  version "2025.2.4,252.27397.103"
-  sha256 x86_64_linux: "4d909f989d7fa0a002f5bc669e002e8ab336ee7091f32756a74549cd8c11f432",
-         arm64_linux:  "f5687e1d0dc416d6f0fb89495d2b4ad4639d4896497db245272d1fe697b1037b"
+  version "2025.3,253.28086.51"
+  sha256 x86_64_linux: "4bab2677f95d13f88cffe1d377f31f82c164da1bce44356ee687bcd7305e726f",
+         arm64_linux:  "f688a375375aef2485841ad98b0ac7d63205da076f140da13f5d9d67f70425cd"
 
   url "https://download.jetbrains.com/idea/ideaIU-#{version.csv.second}#{arch}.tar.gz"
   name "IntelliJ IDEA Ultimate EAP"
