@@ -1,4 +1,4 @@
-cask "jetbrains-idea" do
+cask "jetbrains-idea-eap" do
   arch intel: "",
        arm:   "-aarch64"
   os linux: "linux"
@@ -7,13 +7,13 @@ cask "jetbrains-idea" do
   sha256 x86_64_linux: "4d909f989d7fa0a002f5bc669e002e8ab336ee7091f32756a74549cd8c11f432",
          arm64_linux:  "f5687e1d0dc416d6f0fb89495d2b4ad4639d4896497db245272d1fe697b1037b"
 
-  url "https://download.jetbrains.com/idea/ideaIU-#{version.csv.first}#{arch}.tar.gz"
-  name "IntelliJ IDEA Ultimate"
-  desc "Java IDE by JetBrains"
-  homepage "https://www.jetbrains.com/idea/"
+  url "https://download.jetbrains.com/idea/ideaIU-#{version.csv.second}#{arch}.tar.gz"
+  name "IntelliJ IDEA Ultimate EAP"
+  desc "Java IDE by JetBrains Early Access Program"
+  homepage "https://www.jetbrains.com/idea/nextversion"
 
   livecheck do
-    url "https://data.services.jetbrains.com/products/releases?code=IIU&latest=true&type=release"
+    url "https://data.services.jetbrains.com/products/releases?code=IIU&release.type=eap"
     strategy :json do |json|
       json["IIU"]&.map do |release|
         version = release["version"]
@@ -26,7 +26,7 @@ cask "jetbrains-idea" do
   end
 
   auto_updates false
-  conflicts_with cask: ["jetbrains-toolbox", "jetbrains-idea-eap"]
+  conflicts_with cask: ["jetbrains-toolbox", "jetbrains-idea"]
 
   binary "idea-IU-#{version.csv.second}/bin/idea"
   artifact "idea.desktop",

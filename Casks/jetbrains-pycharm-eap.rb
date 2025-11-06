@@ -1,4 +1,4 @@
-cask "jetbrains-pycharm" do
+cask "jetbrains-pycharm-eap" do
   arch intel: "",
        arm:   "-aarch64"
   os linux: "linux"
@@ -7,13 +7,13 @@ cask "jetbrains-pycharm" do
   sha256 x86_64_linux: "f1613a171ab07ba0e7ccd13cb537af4da8920c89cf4a13c64a3f7ae72e803701",
          arm64_linux:  "91569e7ba9988af1aa4d9973f52dfa8af8a94f32a53faa8457c7ba17d25f43b3"
 
-  url "https://download.jetbrains.com/python/pycharm-#{version.csv.first}#{arch}.tar.gz"
-  name "PyCharm"
-  desc "IDE for professional Python development"
-  homepage "https://www.jetbrains.com/pycharm/"
+  url "https://download.jetbrains.com/python/pycharm-#{version.csv.second}#{arch}.tar.gz"
+  name "PyCharm EAP"
+  desc "IDE for professional Python development Early Access Program"
+  homepage "https://www.jetbrains.com/pycharm/nextversion"
 
   livecheck do
-    url "https://data.services.jetbrains.com/products/releases?code=PCP&latest=true&type=release"
+    url "https://data.services.jetbrains.com/products/releases?code=PCP&release.type=eap"
     strategy :json do |json|
       json["PCP"]&.map do |release|
         version = release["version"]
@@ -28,14 +28,14 @@ cask "jetbrains-pycharm" do
   # The IDEs have their own auto-update, but it doesn't work with this setup
   # seemingly due to hard-links on the artifacts
   auto_updates false
-  conflicts_with cask: ["jetbrains-toolbox", "jetbrains-pycharm-eap"]
+  conflicts_with cask: ["jetbrains-toolbox", "jetbrains-pycharm"]
 
-  binary "pycharm-#{version.csv.first}/bin/pycharm"
+  binary "pycharm-#{version.csv.second}/bin/pycharm"
   artifact "pycharm.desktop",
            target: "#{Dir.home}/.local/share/applications/pycharm.desktop"
-  artifact "pycharm-#{version.csv.first}/bin/pycharm.svg",
+  artifact "pycharm-#{version.csv.second}/bin/pycharm.svg",
            target: "#{Dir.home}/.local/share/icons/pycharm.svg"
-  artifact "pycharm-#{version.csv.first}/bin/pycharm.png",
+  artifact "pycharm-#{version.csv.second}/bin/pycharm.png",
            target: "#{Dir.home}/.local/share/icons/pycharm.png"
 
   preflight do

@@ -1,4 +1,4 @@
-cask "jetbrains-clion" do
+cask "jetbrains-clion-eap" do
   arch intel: "",
        arm:   "-aarch64"
   os linux: "linux"
@@ -7,13 +7,13 @@ cask "jetbrains-clion" do
   sha256 x86_64_linux: "72c89e91f6636aa53930288fe02466e5e09a50a3c8b6ed5ad2f69b35ec9bacc5",
          arm64_linux:  "b89010db5272eb6490a0084bd3247c9de657ffd0d12a827147f2c77a406f85b5"
 
-  url "https://download.jetbrains.com/cpp/CLion-#{version.csv.first}#{arch}.tar.gz"
-  name "CLion"
-  desc "C and C++ IDE"
-  homepage "https://www.jetbrains.com/clion/"
+  url "https://download.jetbrains.com/cpp/CLion-#{version.csv.second}#{arch}.tar.gz"
+  name "CLion EAP"
+  desc "C and C++ IDE Early Access Program"
+  homepage "https://www.jetbrains.com/clion/nextversion"
 
   livecheck do
-    url "https://data.services.jetbrains.com/products/releases?code=CL&latest=true&type=release"
+    url "https://data.services.jetbrains.com/products/releases?code=CL&release.type=eap"
     strategy :json do |json|
       json["CL"]&.map do |release|
         version = release["version"]
@@ -26,14 +26,14 @@ cask "jetbrains-clion" do
   end
 
   auto_updates false
-  conflicts_with cask: ["jetbrains-toolbox", "jetbrains-clion-eap"]
+  conflicts_with cask: ["jetbrains-toolbox", "jetbrains-clion"]
 
-  binary "clion-#{version.csv.first}/bin/clion"
+  binary "clion-#{version.csv.second}/bin/clion"
   artifact "clion.desktop",
            target: "#{Dir.home}/.local/share/applications/clion.desktop"
-  artifact "clion-#{version.csv.first}/bin/clion.svg",
+  artifact "clion-#{version.csv.second}/bin/clion.svg",
            target: "#{Dir.home}/.local/share/icons/clion.svg"
-  artifact "clion-#{version.csv.first}/bin/clion.png",
+  artifact "clion-#{version.csv.second}/bin/clion.png",
            target: "#{Dir.home}/.local/share/icons/clion.png"
 
   preflight do

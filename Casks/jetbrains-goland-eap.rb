@@ -1,4 +1,4 @@
-cask "jetbrains-goland" do
+cask "jetbrains-goland-eap" do
   arch intel: "",
        arm:   "-aarch64"
   os linux: "linux"
@@ -7,13 +7,13 @@ cask "jetbrains-goland" do
   sha256 x86_64_linux: "fb42978d55271e6fa3165b1d010b3e0bacb8cd5c4f4073712332c62f32d2ebab",
          arm64_linux:  "09e5790b20c5ca952af8c86a6094e83aa250d9eb751d144800ba83701d3512a8"
 
-  url "https://download.jetbrains.com/go/goland-#{version.csv.first}#{arch}.tar.gz"
-  name "GoLand"
-  desc "Go (golang) IDE"
-  homepage "https://www.jetbrains.com/goland/"
+  url "https://download.jetbrains.com/go/goland-#{version.csv.second}#{arch}.tar.gz"
+  name "GoLand EAP"
+  desc "Go (golang) IDE Early Access Program"
+  homepage "https://www.jetbrains.com/goland/nextversion"
 
   livecheck do
-    url "https://data.services.jetbrains.com/products/releases?code=GO&latest=true&type=release"
+    url "https://data.services.jetbrains.com/products/releases?code=GO&release.type=eap"
     strategy :json do |json|
       json["GO"]&.map do |release|
         version = release["version"]
@@ -26,14 +26,14 @@ cask "jetbrains-goland" do
   end
 
   auto_updates false
-  conflicts_with cask: ["jetbrains-toolbox", "jetbrains-goland-eap"]
+  conflicts_with cask: ["jetbrains-toolbox", "jetbrains-goland"]
 
-  binary "GoLand-#{version.csv.first}/bin/goland"
+  binary "GoLand-#{version.csv.second}/bin/goland"
   artifact "goland.desktop",
            target: "#{Dir.home}/.local/share/applications/goland.desktop"
-  artifact "GoLand-#{version.csv.first}/bin/goland.svg",
+  artifact "GoLand-#{version.csv.second}/bin/goland.svg",
            target: "#{Dir.home}/.local/share/icons/goland.svg"
-  artifact "GoLand-#{version.csv.first}/bin/goland.png",
+  artifact "GoLand-#{version.csv.second}/bin/goland.png",
            target: "#{Dir.home}/.local/share/icons/goland.png"
 
   preflight do

@@ -1,4 +1,4 @@
-cask "jetbrains-rubymine" do
+cask "jetbrains-rubymine-eap" do
   arch intel: "",
        arm:   "-aarch64"
   os linux: "linux"
@@ -7,13 +7,13 @@ cask "jetbrains-rubymine" do
   sha256 x86_64_linux: "9249ee0e99e24b3898065c5328f56814fb1a8b53afc192e81e7b70e0982eb116",
          arm64_linux:  "4071efa011638cf96f50962b4a7cdf1a28bbdc58af0ebc4c96ddfcc44de48621"
 
-  url "https://download.jetbrains.com/ruby/RubyMine-#{version.csv.first}#{arch}.tar.gz"
-  name "RubyMine"
-  desc "Ruby on Rails IDE"
-  homepage "https://www.jetbrains.com/rubymine/"
+  url "https://download.jetbrains.com/ruby/RubyMine-#{version.csv.second}#{arch}.tar.gz"
+  name "RubyMine EAP"
+  desc "Ruby on Rails IDE Early Access Program"
+  homepage "https://www.jetbrains.com/rubymine/nextversion"
 
   livecheck do
-    url "https://data.services.jetbrains.com/products/releases?code=RM&latest=true&type=release"
+    url "https://data.services.jetbrains.com/products/releases?code=RM&release.type=eap"
     strategy :json do |json|
       json["RM"]&.map do |release|
         version = release["version"]
@@ -26,14 +26,14 @@ cask "jetbrains-rubymine" do
   end
 
   auto_updates false
-  conflicts_with cask: ["jetbrains-toolbox", "jetbrains-rubymine-eap"]
+  conflicts_with cask: ["jetbrains-toolbox", "jetbrains-rubymine"]
 
-  binary "RubyMine-#{version.csv.first}/bin/rubymine"
+  binary "RubyMine-#{version.csv.second}/bin/rubymine"
   artifact "rubymine.desktop",
            target: "#{Dir.home}/.local/share/applications/rubymine.desktop"
-  artifact "RubyMine-#{version.csv.first}/bin/rubymine.svg",
+  artifact "RubyMine-#{version.csv.second}/bin/rubymine.svg",
            target: "#{Dir.home}/.local/share/icons/rubymine.svg"
-  artifact "RubyMine-#{version.csv.first}/bin/rubymine.png",
+  artifact "RubyMine-#{version.csv.second}/bin/rubymine.png",
            target: "#{Dir.home}/.local/share/icons/rubymine.png"
 
   preflight do

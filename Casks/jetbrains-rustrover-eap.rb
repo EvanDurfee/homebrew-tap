@@ -1,4 +1,4 @@
-cask "jetbrains-rustrover" do
+cask "jetbrains-rustrover-eap" do
   arch intel: "",
        arm:   "-aarch64"
   os linux: "linux"
@@ -7,13 +7,13 @@ cask "jetbrains-rustrover" do
   sha256 x86_64_linux: "a51a62af4801f7f4caf8586dde0354d06f6bc351660b75feff554e756874cb37",
          arm64_linux:  "83d868b92b79907dc42d9e4aacc2a2aae3f9838d392c5a7593487bf4cbb8c641"
 
-  url "https://download.jetbrains.com/rustrover/RustRover-#{version.csv.first}#{arch}.tar.gz"
-  name "RustRover"
-  desc "Rust IDE"
-  homepage "https://www.jetbrains.com/rustrover/"
+  url "https://download.jetbrains.com/rustrover/RustRover-#{version.csv.second}#{arch}.tar.gz"
+  name "RustRover EAP"
+  desc "Rust IDE Early Access Program"
+  homepage "https://www.jetbrains.com/rustrover/nextversion"
 
   livecheck do
-    url "https://data.services.jetbrains.com/products/releases?code=RR&latest=true&type=release"
+    url "https://data.services.jetbrains.com/products/releases?code=RR&release.type=eap"
     strategy :json do |json|
       json["RR"]&.map do |release|
         version = release["version"]
@@ -26,14 +26,14 @@ cask "jetbrains-rustrover" do
   end
 
   auto_updates false
-  conflicts_with cask: ["jetbrains-toolbox", "jetbrains-rustrover-eap"]
+  conflicts_with cask: ["jetbrains-toolbox", "jetbrains-rustrover"]
 
-  binary "RustRover-#{version.csv.first}/bin/rustrover"
+  binary "RustRover-#{version.csv.second}/bin/rustrover"
   artifact "rustrover.desktop",
            target: "#{Dir.home}/.local/share/applications/rustrover.desktop"
-  artifact "RustRover-#{version.csv.first}/bin/rustrover.svg",
+  artifact "RustRover-#{version.csv.second}/bin/rustrover.svg",
            target: "#{Dir.home}/.local/share/icons/rustrover.svg"
-  artifact "RustRover-#{version.csv.first}/bin/rustrover.png",
+  artifact "RustRover-#{version.csv.second}/bin/rustrover.png",
            target: "#{Dir.home}/.local/share/icons/rustrover.png"
 
   preflight do

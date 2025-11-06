@@ -1,4 +1,4 @@
-cask "jetbrains-datagrip" do
+cask "jetbrains-datagrip-eap" do
   arch intel: "",
        arm:   "-aarch64"
   os linux: "linux"
@@ -7,13 +7,13 @@ cask "jetbrains-datagrip" do
   sha256 x86_64_linux: "37d0af4ec30b94c71d3507fe35b3b0bdd389903db7e2f1a8ed73353b22718476",
          arm64_linux:  "7df40778500a599d565ba985d1583f3334903fbb731f53add526b19557208d97"
 
-  url "https://download.jetbrains.com/datagrip/datagrip-#{version.csv.first}#{arch}.tar.gz"
-  name "DataGrip"
-  desc "Databases and SQL IDE"
-  homepage "https://www.jetbrains.com/datagrip/"
+  url "https://download.jetbrains.com/datagrip/datagrip-#{version.csv.second}#{arch}.tar.gz"
+  name "DataGrip EAP"
+  desc "Databases and SQL IDE Early Access Program"
+  homepage "https://www.jetbrains.com/datagrip/nextversion"
 
   livecheck do
-    url "https://data.services.jetbrains.com/products/releases?code=DG&latest=true&type=release"
+    url "https://data.services.jetbrains.com/products/releases?code=DG&release.type=eap"
     strategy :json do |json|
       json["DG"]&.map do |release|
         version = release["version"]
@@ -26,14 +26,14 @@ cask "jetbrains-datagrip" do
   end
 
   auto_updates false
-  conflicts_with cask: ["jetbrains-toolbox", "jetbrains-datagrip-eap"]
+  conflicts_with cask: ["jetbrains-toolbox", "jetbrains-datagrip"]
 
-  binary "DataGrip-#{version.csv.first}/bin/datagrip"
+  binary "DataGrip-#{version.csv.second}/bin/datagrip"
   artifact "datagrip.desktop",
            target: "#{Dir.home}/.local/share/applications/datagrip.desktop"
-  artifact "DataGrip-#{version.csv.first}/bin/datagrip.svg",
+  artifact "DataGrip-#{version.csv.second}/bin/datagrip.svg",
            target: "#{Dir.home}/.local/share/icons/datagrip.svg"
-  artifact "DataGrip-#{version.csv.first}/bin/datagrip.png",
+  artifact "DataGrip-#{version.csv.second}/bin/datagrip.png",
            target: "#{Dir.home}/.local/share/icons/datagrip.png"
 
   preflight do
