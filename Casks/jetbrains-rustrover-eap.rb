@@ -3,9 +3,9 @@ cask "jetbrains-rustrover-eap" do
        arm:   "-aarch64"
   os linux: "linux"
 
-  version "2025.2.4.1,252.27397.133"
-  sha256 x86_64_linux: "a51a62af4801f7f4caf8586dde0354d06f6bc351660b75feff554e756874cb37",
-         arm64_linux:  "83d868b92b79907dc42d9e4aacc2a2aae3f9838d392c5a7593487bf4cbb8c641"
+  version "2025.3,253.28294.15"
+  sha256 x86_64_linux: "1507f63c0fb30b5e954dba01ab7c9210a29bf360f11f5359429e890d7fbb8caa",
+         arm64_linux:  "fe1bb2ebdb05fc415496d756b04fda1655a52eb16905903c6b049d397185d704"
 
   url "https://download.jetbrains.com/rustrover/RustRover-#{version.csv.second}#{arch}.tar.gz"
   name "RustRover EAP"
