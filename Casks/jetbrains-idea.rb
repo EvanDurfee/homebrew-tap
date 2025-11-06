@@ -39,6 +39,7 @@ cask "jetbrains-idea" do
            target: "#{Dir.home}/.local/share/icons/idea.png"
 
   preflight do
+    File.write("#{staged_path}/idea-IU-#{version.csv.second}/bin/idea64.vmoptions", "-Dide.no.platform.update=true\n", mode: "a+")
     File.write shimscript, <<~EOS
       #!/bin/sh
       exec '#{HOMEBREW_PREFIX}/Caskroom/jetbrains-idea/#{version}/idea-IU-#{version.csv.second}/bin/idea' "$@"
@@ -59,10 +60,6 @@ cask "jetbrains-idea" do
       StartupWMClass=jetbrains-idea
       StartupNotify=true
     EOS
-  end
-
-  postflight do
-    File.write("#{HOMEBREW_PREFIX}/Caskroom/jetbrains-idea/#{version}/idea-IU-#{version.csv.second}/bin/idea64.vmoptions", "-Dide.no.platform.update=true", mode: "a+")
   end
 
   zap trash: [
