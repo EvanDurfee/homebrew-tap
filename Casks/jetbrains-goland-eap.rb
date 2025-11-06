@@ -3,9 +3,9 @@ cask "jetbrains-goland-eap" do
        arm:   "-aarch64"
   os linux: "linux"
 
-  version "2025.2.4,252.27397.100"
-  sha256 x86_64_linux: "fb42978d55271e6fa3165b1d010b3e0bacb8cd5c4f4073712332c62f32d2ebab",
-         arm64_linux:  "09e5790b20c5ca952af8c86a6094e83aa250d9eb751d144800ba83701d3512a8"
+  version "2025.3,253.28086.52"
+  sha256 x86_64_linux: "961d9a10df34d6efac825e528ff6d677064d2740f56678d9fd77aba1441b5aa9",
+         arm64_linux:  "9b11169f330393e98e13364a049e9df862484dba484e06f1f965920f4cd1dd72"
 
   url "https://download.jetbrains.com/go/goland-#{version.csv.second}#{arch}.tar.gz"
   name "GoLand EAP"
