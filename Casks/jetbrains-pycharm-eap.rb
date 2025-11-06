@@ -3,9 +3,9 @@ cask "jetbrains-pycharm-eap" do
        arm:   "-aarch64"
   os linux: "linux"
 
-  version "2025.2.4,252.27397.106"
-  sha256 x86_64_linux: "f1613a171ab07ba0e7ccd13cb537af4da8920c89cf4a13c64a3f7ae72e803701",
-         arm64_linux:  "91569e7ba9988af1aa4d9973f52dfa8af8a94f32a53faa8457c7ba17d25f43b3"
+  version "2025.3,253.28086.55"
+  sha256 x86_64_linux: "32df557617b2e5d4462303a49f977f529341fbb7e08b99f32121b281db1cb846",
+         arm64_linux:  "f5e3e509ccbc6d7e1550afad8540953d7f5810d080563f22a8050cda3cfcba80"
 
   url "https://download.jetbrains.com/python/pycharm-#{version.csv.second}#{arch}.tar.gz"
   name "PyCharm EAP"
