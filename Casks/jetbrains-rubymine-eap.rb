@@ -27,6 +27,7 @@ cask "jetbrains-rubymine-eap" do
 
   auto_updates false
   conflicts_with cask: "jetbrains-toolbox"
+  conflicts_with cask: "jetbrains-rubymine"
 
   binary "RubyMine-#{version.csv.first}/bin/rubymine"
   artifact "rubymine.desktop",

@@ -27,6 +27,7 @@ cask "jetbrains-clion-eap" do
 
   auto_updates false
   conflicts_with cask: "jetbrains-toolbox"
+  conflicts_with cask: "jetbrains-clion"
 
   binary "clion-#{version.csv.first}/bin/clion"
   artifact "clion.desktop",

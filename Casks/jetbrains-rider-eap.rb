@@ -27,6 +27,7 @@ cask "jetbrains-rider-eap" do
 
   auto_updates false
   conflicts_with cask: "jetbrains-toolbox"
+  conflicts_with cask: "jetbrains-rider"
 
   binary "JetBrains Rider-#{version.csv.first}/bin/rider"
   artifact "rider.desktop",

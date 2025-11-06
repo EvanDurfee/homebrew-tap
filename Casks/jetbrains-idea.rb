@@ -27,6 +27,7 @@ cask "jetbrains-idea" do
 
   auto_updates false
   conflicts_with cask: "jetbrains-toolbox"
+  conflicts_with cask: "jetbrains-idea-eap"
 
   binary "idea-IU-#{version.csv.second}/bin/idea"
   artifact "idea.desktop",

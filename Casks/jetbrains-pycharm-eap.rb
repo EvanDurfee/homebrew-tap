@@ -29,6 +29,7 @@ cask "jetbrains-pycharm-eap" do
   # seemingly due to hard-links on the artifacts
   auto_updates false
   conflicts_with cask: "jetbrains-toolbox"
+  conflicts_with cask: "jetbrains-pycharm"
 
   binary "pycharm-#{version.csv.first}/bin/pycharm"
   artifact "pycharm.desktop",

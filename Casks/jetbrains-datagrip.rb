@@ -27,6 +27,7 @@ cask "jetbrains-datagrip" do
 
   auto_updates false
   conflicts_with cask: "jetbrains-toolbox"
+  conflicts_with cask: "jetbrains-datagrip-eap"
 
   binary "DataGrip-#{version.csv.first}/bin/datagrip"
   artifact "datagrip.desktop",
