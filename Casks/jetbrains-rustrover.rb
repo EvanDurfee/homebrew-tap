@@ -28,7 +28,9 @@ cask "jetbrains-rustrover" do
   auto_updates false
   conflicts_with cask: ["jetbrains-toolbox", "jetbrains-rustrover-eap"]
 
-  binary "RustRover-#{version.csv.first}/bin/rustrover"
+  # shim script (https://github.com/Homebrew/homebrew-cask/issues/18809)
+  shimscript = "#{staged_path}/rustrover.wrapper.sh"
+  binary shimscript, target: "rustrover"
   artifact "rustrover.desktop",
            target: "#{Dir.home}/.local/share/applications/rustrover.desktop"
   artifact "RustRover-#{version.csv.first}/bin/rustrover.svg",
@@ -37,6 +39,10 @@ cask "jetbrains-rustrover" do
            target: "#{Dir.home}/.local/share/icons/rustrover.png"
 
   preflight do
+    File.write shimscript, <<~EOS
+      #!/bin/sh
+      exec '#{prefix}/RustRover-#{version.csv.first}/bin/rustrover' -Dide.no.platform.update=true "$@"
+    EOS
     FileUtils.mkdir_p("#{Dir.home}/.local/share/applications")
     FileUtils.mkdir_p("#{Dir.home}/.local/share/icons")
     File.write("#{staged_path}/rustrover.desktop", <<~EOS)

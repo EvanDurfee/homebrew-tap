@@ -28,7 +28,9 @@ cask "jetbrains-datagrip" do
   auto_updates false
   conflicts_with cask: ["jetbrains-toolbox", "jetbrains-datagrip-eap"]
 
-  binary "DataGrip-#{version.csv.first}/bin/datagrip"
+  # shim script (https://github.com/Homebrew/homebrew-cask/issues/18809)
+  shimscript = "#{staged_path}/datagrip.wrapper.sh"
+  binary shimscript, target: "datagrip"
   artifact "datagrip.desktop",
            target: "#{Dir.home}/.local/share/applications/datagrip.desktop"
   artifact "DataGrip-#{version.csv.first}/bin/datagrip.svg",
@@ -37,6 +39,10 @@ cask "jetbrains-datagrip" do
            target: "#{Dir.home}/.local/share/icons/datagrip.png"
 
   preflight do
+    File.write shimscript, <<~EOS
+      #!/bin/sh
+      exec '#{prefix}/DataGrip-#{version.csv.first}/bin/datagrip' -Dide.no.platform.update=true "$@"
+    EOS
     FileUtils.mkdir_p("#{Dir.home}/.local/share/applications")
     FileUtils.mkdir_p("#{Dir.home}/.local/share/icons")
     File.write("#{staged_path}/datagrip.desktop", <<~EOS)

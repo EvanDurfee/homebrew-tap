@@ -28,7 +28,9 @@ cask "jetbrains-goland-eap" do
   auto_updates false
   conflicts_with cask: ["jetbrains-toolbox", "jetbrains-goland"]
 
-  binary "GoLand-#{version.csv.second}/bin/goland"
+  # shim script (https://github.com/Homebrew/homebrew-cask/issues/18809)
+  shimscript = "#{staged_path}/goland.wrapper.sh"
+  binary shimscript, target: "goland"
   artifact "goland.desktop",
            target: "#{Dir.home}/.local/share/applications/goland.desktop"
   artifact "GoLand-#{version.csv.second}/bin/goland.svg",
@@ -37,6 +39,10 @@ cask "jetbrains-goland-eap" do
            target: "#{Dir.home}/.local/share/icons/goland.png"
 
   preflight do
+    File.write shimscript, <<~EOS
+      #!/bin/sh
+      exec '#{prefix}/GoLand-#{version.csv.second}/bin/goland' -Dide.no.platform.update=true "$@"
+    EOS
     FileUtils.mkdir_p("#{Dir.home}/.local/share/applications")
     FileUtils.mkdir_p("#{Dir.home}/.local/share/icons")
     File.write("#{staged_path}/goland.desktop", <<~EOS)

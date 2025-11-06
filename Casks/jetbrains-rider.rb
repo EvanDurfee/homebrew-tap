@@ -28,7 +28,9 @@ cask "jetbrains-rider" do
   auto_updates false
   conflicts_with cask: ["jetbrains-toolbox", "jetbrains-rider-eap"]
 
-  binary "JetBrains Rider-#{version.csv.first}/bin/rider"
+  # shim script (https://github.com/Homebrew/homebrew-cask/issues/18809)
+  shimscript = "#{staged_path}/rider.wrapper.sh"
+  binary shimscript, target: "rider"
   artifact "rider.desktop",
            target: "#{Dir.home}/.local/share/applications/rider.desktop"
   artifact "JetBrains Rider-#{version.csv.first}/bin/rider.svg",
@@ -37,6 +39,10 @@ cask "jetbrains-rider" do
            target: "#{Dir.home}/.local/share/icons/rider.png"
 
   preflight do
+    File.write shimscript, <<~EOS
+      #!/bin/sh
+      exec '#{prefix}/JetBrains Rider-#{version.csv.first}/bin/rider' -Dide.no.platform.update=true "$@"
+    EOS
     FileUtils.mkdir_p("#{Dir.home}/.local/share/applications")
     FileUtils.mkdir_p("#{Dir.home}/.local/share/icons")
     File.write("#{staged_path}/rider.desktop", <<~EOS)
