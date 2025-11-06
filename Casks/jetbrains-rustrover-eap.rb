@@ -26,8 +26,7 @@ cask "jetbrains-rustrover-eap" do
   end
 
   auto_updates false
-  conflicts_with cask: "jetbrains-toolbox"
-  conflicts_with cask: "jetbrains-rustrover"
+  conflicts_with cask: ["jetbrains-toolbox", "jetbrains-rustrover"]
 
   binary "RustRover-#{version.csv.second}/bin/rustrover"
   artifact "rustrover.desktop",

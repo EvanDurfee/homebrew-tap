@@ -28,8 +28,7 @@ cask "jetbrains-pycharm" do
   # The IDEs have their own auto-update, but it doesn't work with this setup
   # seemingly due to hard-links on the artifacts
   auto_updates false
-  conflicts_with cask: "jetbrains-toolbox"
-  conflicts_with cask: "jetbrains-pycharm-eap"
+  conflicts_with cask: ["jetbrains-toolbox", "jetbrains-pycharm-eap"]
 
   binary "pycharm-#{version.csv.first}/bin/pycharm"
   artifact "pycharm.desktop",

@@ -26,8 +26,7 @@ cask "jetbrains-goland" do
   end
 
   auto_updates false
-  conflicts_with cask: "jetbrains-toolbox"
-  conflicts_with cask: "jetbrains-goland-eap"
+  conflicts_with cask: ["jetbrains-toolbox", "jetbrains-goland-eap"]
 
   binary "GoLand-#{version.csv.first}/bin/goland"
   artifact "goland.desktop",
