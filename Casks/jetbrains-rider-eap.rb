@@ -1,4 +1,4 @@
-cask "jetbrains-rider" do
+cask "jetbrains-rider-eap" do
   arch intel: "",
        arm:   "-aarch64"
   os linux: "linux"

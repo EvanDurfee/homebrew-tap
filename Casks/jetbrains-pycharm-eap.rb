@@ -1,4 +1,4 @@
-cask "jetbrains-pycharm" do
+cask "jetbrains-pycharm-eap" do
   arch intel: "",
        arm:   "-aarch64"
   os linux: "linux"

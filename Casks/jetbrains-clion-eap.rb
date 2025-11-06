@@ -1,4 +1,4 @@
-cask "jetbrains-clion" do
+cask "jetbrains-clion-eap" do
   arch intel: "",
        arm:   "-aarch64"
   os linux: "linux"

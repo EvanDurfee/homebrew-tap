@@ -1,4 +1,4 @@
-cask "jetbrains-goland" do
+cask "jetbrains-goland-eap" do
   arch intel: "",
        arm:   "-aarch64"
   os linux: "linux"

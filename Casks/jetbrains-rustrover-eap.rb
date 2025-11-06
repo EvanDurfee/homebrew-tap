@@ -1,4 +1,4 @@
-cask "jetbrains-rustrover" do
+cask "jetbrains-rustrover-eap" do
   arch intel: "",
        arm:   "-aarch64"
   os linux: "linux"

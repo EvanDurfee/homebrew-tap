@@ -1,4 +1,4 @@
-cask "jetbrains-rubymine" do
+cask "jetbrains-rubymine-eap" do
   arch intel: "",
        arm:   "-aarch64"
   os linux: "linux"
