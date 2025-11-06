@@ -41,9 +41,10 @@ cask "jetbrains-pycharm-eap" do
            target: "#{Dir.home}/.local/share/icons/pycharm.png"
 
   preflight do
+    File.write("#{staged_path}/pycharm-#{version.csv.second}/bin/pycharm64.vmoptions", "-Dide.no.platform.update=true\n", mode: "a+")
     File.write shimscript, <<~EOS
       #!/bin/sh
-      exec '#{HOMEBREW_PREFIX}/Caskroom/jetbrains-pycharm-eap/#{version}/pycharm-#{version.csv.second}/bin/pycharm' -Dide.no.platform.update=true "$@"
+      exec '#{HOMEBREW_PREFIX}/Caskroom/jetbrains-pycharm-eap/#{version}/pycharm-#{version.csv.second}/bin/pycharm' "$@"
     EOS
     FileUtils.mkdir_p("#{Dir.home}/.local/share/applications")
     FileUtils.mkdir_p("#{Dir.home}/.local/share/icons")

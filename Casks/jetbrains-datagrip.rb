@@ -39,9 +39,10 @@ cask "jetbrains-datagrip" do
            target: "#{Dir.home}/.local/share/icons/datagrip.png"
 
   preflight do
+    File.write("#{staged_path}/DataGrip-#{version.csv.first}/bin/datagrip64.vmoptions", "-Dide.no.platform.update=true\n", mode: "a+")
     File.write shimscript, <<~EOS
       #!/bin/sh
-      exec '#{HOMEBREW_PREFIX}/Caskroom/jetbrains-datagrip/#{version}/DataGrip-#{version.csv.first}/bin/datagrip' -Dide.no.platform.update=true "$@"
+      exec '#{HOMEBREW_PREFIX}/Caskroom/jetbrains-datagrip/#{version}/DataGrip-#{version.csv.first}/bin/datagrip' "$@"
     EOS
     FileUtils.mkdir_p("#{Dir.home}/.local/share/applications")
     FileUtils.mkdir_p("#{Dir.home}/.local/share/icons")

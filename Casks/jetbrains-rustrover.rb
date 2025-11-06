@@ -39,9 +39,10 @@ cask "jetbrains-rustrover" do
            target: "#{Dir.home}/.local/share/icons/rustrover.png"
 
   preflight do
+    File.write("#{staged_path}/RustRover-#{version.csv.first}/bin/rustrover64.vmoptions", "-Dide.no.platform.update=true\n", mode: "a+")
     File.write shimscript, <<~EOS
       #!/bin/sh
-      exec '#{HOMEBREW_PREFIX}/Caskroom/jetbrains-rustrover/#{version}/RustRover-#{version.csv.first}/bin/rustrover' -Dide.no.platform.update=true "$@"
+      exec '#{HOMEBREW_PREFIX}/Caskroom/jetbrains-rustrover/#{version}/RustRover-#{version.csv.first}/bin/rustrover' "$@"
     EOS
     FileUtils.mkdir_p("#{Dir.home}/.local/share/applications")
     FileUtils.mkdir_p("#{Dir.home}/.local/share/icons")

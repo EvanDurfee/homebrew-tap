@@ -39,9 +39,10 @@ cask "jetbrains-rider" do
            target: "#{Dir.home}/.local/share/icons/rider.png"
 
   preflight do
+    File.write("#{staged_path}/JetBrains Rider-#{version.csv.first}/bin/rider64.vmoptions", "-Dide.no.platform.update=true\n", mode: "a+")
     File.write shimscript, <<~EOS
       #!/bin/sh
-      exec '#{HOMEBREW_PREFIX}/Caskroom/jetbrains-rider/#{version}/JetBrains Rider-#{version.csv.first}/bin/rider' -Dide.no.platform.update=true "$@"
+      exec '#{HOMEBREW_PREFIX}/Caskroom/jetbrains-rider/#{version}/JetBrains Rider-#{version.csv.first}/bin/rider' "$@"
     EOS
     FileUtils.mkdir_p("#{Dir.home}/.local/share/applications")
     FileUtils.mkdir_p("#{Dir.home}/.local/share/icons")

@@ -39,9 +39,10 @@ cask "jetbrains-goland" do
            target: "#{Dir.home}/.local/share/icons/goland.png"
 
   preflight do
+    File.write("#{staged_path}/GoLand-#{version.csv.first}/bin/goland64.vmoptions", "-Dide.no.platform.update=true\n", mode: "a+")
     File.write shimscript, <<~EOS
       #!/bin/sh
-      exec '#{HOMEBREW_PREFIX}/Caskroom/jetbrains-goland/#{version}/GoLand-#{version.csv.first}/bin/goland' -Dide.no.platform.update=true "$@"
+      exec '#{HOMEBREW_PREFIX}/Caskroom/jetbrains-goland/#{version}/GoLand-#{version.csv.first}/bin/goland' "$@"
     EOS
     FileUtils.mkdir_p("#{Dir.home}/.local/share/applications")
     FileUtils.mkdir_p("#{Dir.home}/.local/share/icons")

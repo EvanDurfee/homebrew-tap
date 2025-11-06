@@ -39,9 +39,10 @@ cask "jetbrains-clion-eap" do
            target: "#{Dir.home}/.local/share/icons/clion.png"
 
   preflight do
+    File.write("#{staged_path}/clion-#{version.csv.second}/bin/clion64.vmoptions", "-Dide.no.platform.update=true\n", mode: "a+")
     File.write shimscript, <<~EOS
       #!/bin/sh
-      exec '#{HOMEBREW_PREFIX}/Caskroom/jetbrains-clion-eap/#{version}/clion-#{version.csv.second}/bin/clion' -Dide.no.platform.update=true "$@"
+      exec '#{HOMEBREW_PREFIX}/Caskroom/jetbrains-clion-eap/#{version}/clion-#{version.csv.second}/bin/clion' "$@"
     EOS
     FileUtils.mkdir_p("#{Dir.home}/.local/share/applications")
     FileUtils.mkdir_p("#{Dir.home}/.local/share/icons")

@@ -39,9 +39,10 @@ cask "jetbrains-rubymine" do
            target: "#{Dir.home}/.local/share/icons/rubymine.png"
 
   preflight do
+    File.write("#{staged_path}/RubyMine-#{version.csv.first}/bin/rubymine64.vmoptions", "-Dide.no.platform.update=true\n", mode: "a+")
     File.write shimscript, <<~EOS
       #!/bin/sh
-      exec '#{HOMEBREW_PREFIX}/Caskroom/jetbrains-rubymine/#{version}/RubyMine-#{version.csv.first}/bin/rubymine' -Dide.no.platform.update=true "$@"
+      exec '#{HOMEBREW_PREFIX}/Caskroom/jetbrains-rubymine/#{version}/RubyMine-#{version.csv.first}/bin/rubymine' "$@"
     EOS
     FileUtils.mkdir_p("#{Dir.home}/.local/share/applications")
     FileUtils.mkdir_p("#{Dir.home}/.local/share/icons")
