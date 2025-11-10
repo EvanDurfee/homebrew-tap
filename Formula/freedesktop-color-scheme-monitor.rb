@@ -3,7 +3,7 @@ class FreedesktopColorSchemeMonitor < Formula
   homepage "https://github.com/EvanDurfee/freedesktop-color-scheme-monitor"
   url "https://github.com/EvanDurfee/freedesktop-color-scheme-monitor/archive/refs/tags/v0.1.1.tar.gz"
   sha256 "0f37dd7f84f67e9402a38662750b8c33b2b4fc0c603f1fca02c2fd4df3b4f6f0"
-  license "GPL-3.0"
+  license "GPL-3.0-or-later"
 
   livecheck do
     url :stable
