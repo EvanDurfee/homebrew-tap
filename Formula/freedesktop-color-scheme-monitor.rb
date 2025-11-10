@@ -13,10 +13,12 @@ class FreedesktopColorSchemeMonitor < Formula
   depends_on :linux
 
   def install
-    modified_file = File.read("systemd/color-scheme-monitor.service")
-                        .gsub!("ExecStart=/bin/sh -c 'exec \"${XDG_DATA_HOME:-\"$HOME\"/.local/share}\"/color-scheme/color-scheme-monitor.sh'",
-                               "ExecStart=#{prefix}/libexec/color-scheme-monitor.sh")
-    File.write("color-scheme-monitor.service", modified_file)
+    # Update the path in the systemd service to match our installation dir
+    modified_unit = File.read("systemd/color-scheme-monitor.service")
+                        .gsub!("ExecStart=/bin/sh -c 'exec \"${XDG_DATA_HOME:-\"$HOME\"/" \
+                               ".local/share}\"/color-scheme/color-scheme-monitor.sh'",
+                               "ExecStart=#{libexec}/color-scheme-monitor.sh")
+    File.write("color-scheme-monitor.service", modified_unit)
 
     libexec.install "color-scheme/color-scheme-monitor.sh" => "color-scheme-monitor.sh"
     # Installing this to opt breaks things badly during the install process; where does it go?
