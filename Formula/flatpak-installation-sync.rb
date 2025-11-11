@@ -1,8 +1,8 @@
 class FlatpakInstallationSync < Formula
   desc "Automate installation of flatpaks"
   homepage "https://github.com/EvanDurfee/distro-utils"
-  url "https://github.com/EvanDurfee/distro-utils/archive/refs/tags/v0.0.1.tar.gz"
-  sha256 "d55908bd73ec8b14618f93d08697637d3c4190ced8b79be0eb0fd96c72e6a554"
+  url "https://github.com/EvanDurfee/distro-utils/archive/refs/tags/v0.0.2.tar.gz"
+  sha256 "452d4a9f1325f35ea4ad7bdc13cb4c48a1763eee061fd08b7f61887f6346aedb"
   license "MPL-2.0"
 
   livecheck do
