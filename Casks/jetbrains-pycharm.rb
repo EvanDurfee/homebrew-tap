@@ -36,9 +36,7 @@ cask "jetbrains-pycharm" do
   artifact "pycharm.desktop",
            target: "#{Dir.home}/.local/share/applications/pycharm.desktop"
   artifact "pycharm-#{version.csv.first}/bin/pycharm.svg",
-           target: "#{Dir.home}/.local/share/icons/pycharm.svg"
-  artifact "pycharm-#{version.csv.first}/bin/pycharm.png",
-           target: "#{Dir.home}/.local/share/icons/pycharm.png"
+           target: "#{Dir.home}/.local/share/icons/hicolor/scalable/apps/pycharm.svg"
 
   preflight do
     File.write("#{staged_path}/pycharm-#{version.csv.first}/bin/pycharm64.vmoptions", "-Dide.no.platform.update=true\n", mode: "a+")
@@ -47,7 +45,7 @@ cask "jetbrains-pycharm" do
       exec '#{HOMEBREW_PREFIX}/Caskroom/jetbrains-pycharm/#{version}/pycharm-#{version.csv.first}/bin/pycharm' "$@"
     EOS
     FileUtils.mkdir_p("#{Dir.home}/.local/share/applications")
-    FileUtils.mkdir_p("#{Dir.home}/.local/share/icons")
+    FileUtils.mkdir_p("#{Dir.home}/.local/share/icons/hicolor/scalable/apps")
     File.write("#{staged_path}/pycharm.desktop", <<~EOS)
       [Desktop Entry]
       Version=1.0
@@ -62,6 +60,10 @@ cask "jetbrains-pycharm" do
       StartupWMClass=jetbrains-pycharm
       StartupNotify=true
     EOS
+  end
+
+  postflight do
+    system "/usr/bin/xdg-icon-resource", "forceupdate"
   end
 
   zap trash: [

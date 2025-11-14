@@ -34,9 +34,7 @@ cask "jetbrains-clion-eap" do
   artifact "clion.desktop",
            target: "#{Dir.home}/.local/share/applications/clion.desktop"
   artifact "clion-#{version.csv.second}/bin/clion.svg",
-           target: "#{Dir.home}/.local/share/icons/clion.svg"
-  artifact "clion-#{version.csv.second}/bin/clion.png",
-           target: "#{Dir.home}/.local/share/icons/clion.png"
+           target: "#{Dir.home}/.local/share/icons/hicolor/scalable/apps/clion.svg"
 
   preflight do
     File.write("#{staged_path}/clion-#{version.csv.second}/bin/clion64.vmoptions", "-Dide.no.platform.update=true\n", mode: "a+")
@@ -45,7 +43,7 @@ cask "jetbrains-clion-eap" do
       exec '#{HOMEBREW_PREFIX}/Caskroom/jetbrains-clion-eap/#{version}/clion-#{version.csv.second}/bin/clion' "$@"
     EOS
     FileUtils.mkdir_p("#{Dir.home}/.local/share/applications")
-    FileUtils.mkdir_p("#{Dir.home}/.local/share/icons")
+    FileUtils.mkdir_p("#{Dir.home}/.local/share/icons/hicolor/scalable/apps")
     File.write("#{staged_path}/clion.desktop", <<~EOS)
       [Desktop Entry]
       Version=1.0
@@ -60,6 +58,10 @@ cask "jetbrains-clion-eap" do
       StartupWMClass=jetbrains-clion
       StartupNotify=true
     EOS
+  end
+
+  postflight do
+    system "/usr/bin/xdg-icon-resource", "forceupdate"
   end
 
   zap trash: [

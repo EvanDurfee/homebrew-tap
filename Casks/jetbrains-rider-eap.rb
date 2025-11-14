@@ -34,9 +34,7 @@ cask "jetbrains-rider-eap" do
   artifact "rider.desktop",
            target: "#{Dir.home}/.local/share/applications/rider.desktop"
   artifact "JetBrains Rider-#{version.csv.second}/bin/rider.svg",
-           target: "#{Dir.home}/.local/share/icons/rider.svg"
-  artifact "JetBrains Rider-#{version.csv.second}/bin/rider.png",
-           target: "#{Dir.home}/.local/share/icons/rider.png"
+           target: "#{Dir.home}/.local/share/icons/hicolor/scalable/apps/rider.svg"
 
   preflight do
     File.write("#{staged_path}/JetBrains Rider-#{version.csv.second}/bin/rider64.vmoptions", "-Dide.no.platform.update=true\n", mode: "a+")
@@ -45,7 +43,7 @@ cask "jetbrains-rider-eap" do
       exec '#{HOMEBREW_PREFIX}/Caskroom/jetbrains-rider-eap/#{version}/JetBrains Rider-#{version.csv.second}/bin/rider' "$@"
     EOS
     FileUtils.mkdir_p("#{Dir.home}/.local/share/applications")
-    FileUtils.mkdir_p("#{Dir.home}/.local/share/icons")
+    FileUtils.mkdir_p("#{Dir.home}/.local/share/icons/hicolor/scalable/apps")
     File.write("#{staged_path}/rider.desktop", <<~EOS)
       [Desktop Entry]
       Version=1.0
@@ -60,6 +58,10 @@ cask "jetbrains-rider-eap" do
       StartupWMClass=jetbrains-rider
       StartupNotify=true
     EOS
+  end
+
+  postflight do
+    system "/usr/bin/xdg-icon-resource", "forceupdate"
   end
 
   zap trash: [

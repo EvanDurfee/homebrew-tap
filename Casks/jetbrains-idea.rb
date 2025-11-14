@@ -34,9 +34,7 @@ cask "jetbrains-idea" do
   artifact "idea.desktop",
            target: "#{Dir.home}/.local/share/applications/idea.desktop"
   artifact "idea-IU-#{version.csv.second}/bin/idea.svg",
-           target: "#{Dir.home}/.local/share/icons/idea.svg"
-  artifact "idea-IU-#{version.csv.second}/bin/idea.png",
-           target: "#{Dir.home}/.local/share/icons/idea.png"
+           target: "#{Dir.home}/.local/share/icons/hicolor/scalable/apps/idea.svg"
 
   preflight do
     File.write("#{staged_path}/idea-IU-#{version.csv.second}/bin/idea64.vmoptions", "-Dide.no.platform.update=true\n", mode: "a+")
@@ -45,7 +43,7 @@ cask "jetbrains-idea" do
       exec '#{HOMEBREW_PREFIX}/Caskroom/jetbrains-idea/#{version}/idea-IU-#{version.csv.second}/bin/idea' "$@"
     EOS
     FileUtils.mkdir_p("#{Dir.home}/.local/share/applications")
-    FileUtils.mkdir_p("#{Dir.home}/.local/share/icons")
+    FileUtils.mkdir_p("#{Dir.home}/.local/share/icons/hicolor/scalable/apps")
     File.write("#{staged_path}/idea.desktop", <<~EOS)
       [Desktop Entry]
       Version=1.0
@@ -60,6 +58,10 @@ cask "jetbrains-idea" do
       StartupWMClass=jetbrains-idea
       StartupNotify=true
     EOS
+  end
+
+  postflight do
+    system "/usr/bin/xdg-icon-resource", "forceupdate"
   end
 
   zap trash: [

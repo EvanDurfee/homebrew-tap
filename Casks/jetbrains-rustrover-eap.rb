@@ -34,9 +34,7 @@ cask "jetbrains-rustrover-eap" do
   artifact "rustrover.desktop",
            target: "#{Dir.home}/.local/share/applications/rustrover.desktop"
   artifact "RustRover-#{version.csv.second}/bin/rustrover.svg",
-           target: "#{Dir.home}/.local/share/icons/rustrover.svg"
-  artifact "RustRover-#{version.csv.second}/bin/rustrover.png",
-           target: "#{Dir.home}/.local/share/icons/rustrover.png"
+           target: "#{Dir.home}/.local/share/icons/hicolor/scalable/apps/rustrover.svg"
 
   preflight do
     File.write("#{staged_path}/RustRover-#{version.csv.second}/bin/rustrover64.vmoptions", "-Dide.no.platform.update=true\n", mode: "a+")
@@ -45,7 +43,7 @@ cask "jetbrains-rustrover-eap" do
       exec '#{HOMEBREW_PREFIX}/Caskroom/jetbrains-rustrover-eap/#{version}/RustRover-#{version.csv.second}/bin/rustrover' "$@"
     EOS
     FileUtils.mkdir_p("#{Dir.home}/.local/share/applications")
-    FileUtils.mkdir_p("#{Dir.home}/.local/share/icons")
+    FileUtils.mkdir_p("#{Dir.home}/.local/share/icons/hicolor/scalable/apps")
     File.write("#{staged_path}/rustrover.desktop", <<~EOS)
       [Desktop Entry]
       Version=1.0
@@ -60,6 +58,10 @@ cask "jetbrains-rustrover-eap" do
       StartupWMClass=jetbrains-rustrover
       StartupNotify=true
     EOS
+  end
+
+  postflight do
+    system "/usr/bin/xdg-icon-resource", "forceupdate"
   end
 
   zap trash: [

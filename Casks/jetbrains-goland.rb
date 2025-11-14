@@ -34,9 +34,7 @@ cask "jetbrains-goland" do
   artifact "goland.desktop",
            target: "#{Dir.home}/.local/share/applications/goland.desktop"
   artifact "GoLand-#{version.csv.first}/bin/goland.svg",
-           target: "#{Dir.home}/.local/share/icons/goland.svg"
-  artifact "GoLand-#{version.csv.first}/bin/goland.png",
-           target: "#{Dir.home}/.local/share/icons/goland.png"
+           target: "#{Dir.home}/.local/share/icons/hicolor/scalable/apps/goland.svg"
 
   preflight do
     File.write("#{staged_path}/GoLand-#{version.csv.first}/bin/goland64.vmoptions", "-Dide.no.platform.update=true\n", mode: "a+")
@@ -45,7 +43,7 @@ cask "jetbrains-goland" do
       exec '#{HOMEBREW_PREFIX}/Caskroom/jetbrains-goland/#{version}/GoLand-#{version.csv.first}/bin/goland' "$@"
     EOS
     FileUtils.mkdir_p("#{Dir.home}/.local/share/applications")
-    FileUtils.mkdir_p("#{Dir.home}/.local/share/icons")
+    FileUtils.mkdir_p("#{Dir.home}/.local/share/icons/hicolor/scalable/apps")
     File.write("#{staged_path}/goland.desktop", <<~EOS)
       [Desktop Entry]
       Version=1.0
@@ -60,6 +58,10 @@ cask "jetbrains-goland" do
       StartupWMClass=jetbrains-goland
       StartupNotify=true
     EOS
+  end
+
+  postflight do
+    system "/usr/bin/xdg-icon-resource", "forceupdate"
   end
 
   zap trash: [

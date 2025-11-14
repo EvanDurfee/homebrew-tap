@@ -34,9 +34,7 @@ cask "jetbrains-rubymine" do
   artifact "rubymine.desktop",
            target: "#{Dir.home}/.local/share/applications/rubymine.desktop"
   artifact "RubyMine-#{version.csv.first}/bin/rubymine.svg",
-           target: "#{Dir.home}/.local/share/icons/rubymine.svg"
-  artifact "RubyMine-#{version.csv.first}/bin/rubymine.png",
-           target: "#{Dir.home}/.local/share/icons/rubymine.png"
+           target: "#{Dir.home}/.local/share/icons/hicolor/scalable/apps/rubymine.svg"
 
   preflight do
     File.write("#{staged_path}/RubyMine-#{version.csv.first}/bin/rubymine64.vmoptions", "-Dide.no.platform.update=true\n", mode: "a+")
@@ -45,7 +43,7 @@ cask "jetbrains-rubymine" do
       exec '#{HOMEBREW_PREFIX}/Caskroom/jetbrains-rubymine/#{version}/RubyMine-#{version.csv.first}/bin/rubymine' "$@"
     EOS
     FileUtils.mkdir_p("#{Dir.home}/.local/share/applications")
-    FileUtils.mkdir_p("#{Dir.home}/.local/share/icons")
+    FileUtils.mkdir_p("#{Dir.home}/.local/share/icons/hicolor/scalable/apps")
     File.write("#{staged_path}/rubymine.desktop", <<~EOS)
       [Desktop Entry]
       Version=1.0
@@ -60,6 +58,10 @@ cask "jetbrains-rubymine" do
       StartupWMClass=jetbrains-rubymine
       StartupNotify=true
     EOS
+  end
+
+  postflight do
+    system "/usr/bin/xdg-icon-resource", "forceupdate"
   end
 
   zap trash: [

@@ -34,9 +34,7 @@ cask "jetbrains-datagrip" do
   artifact "datagrip.desktop",
            target: "#{Dir.home}/.local/share/applications/datagrip.desktop"
   artifact "DataGrip-#{version.csv.first}/bin/datagrip.svg",
-           target: "#{Dir.home}/.local/share/icons/datagrip.svg"
-  artifact "DataGrip-#{version.csv.first}/bin/datagrip.png",
-           target: "#{Dir.home}/.local/share/icons/datagrip.png"
+           target: "#{Dir.home}/.local/share/icons/hicolor/scalable/apps/datagrip.svg"
 
   preflight do
     File.write("#{staged_path}/DataGrip-#{version.csv.first}/bin/datagrip64.vmoptions", "-Dide.no.platform.update=true\n", mode: "a+")
@@ -45,7 +43,7 @@ cask "jetbrains-datagrip" do
       exec '#{HOMEBREW_PREFIX}/Caskroom/jetbrains-datagrip/#{version}/DataGrip-#{version.csv.first}/bin/datagrip' "$@"
     EOS
     FileUtils.mkdir_p("#{Dir.home}/.local/share/applications")
-    FileUtils.mkdir_p("#{Dir.home}/.local/share/icons")
+    FileUtils.mkdir_p("#{Dir.home}/.local/share/icons/hicolor/scalable/apps")
     File.write("#{staged_path}/datagrip.desktop", <<~EOS)
       [Desktop Entry]
       Version=1.0
@@ -60,6 +58,10 @@ cask "jetbrains-datagrip" do
       StartupWMClass=jetbrains-datagrip
       StartupNotify=true
     EOS
+  end
+
+  postflight do
+    system "/usr/bin/xdg-icon-resource", "forceupdate"
   end
 
   zap trash: [
