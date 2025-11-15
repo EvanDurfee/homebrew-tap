@@ -48,7 +48,7 @@ cask "jetbrains-rustrover" do
       [Desktop Entry]
       Version=1.0
       Name=RustRover
-      Comment=JetBrains Rust IDE
+      Comment=A powerful IDE for Rust
       Exec=#{HOMEBREW_PREFIX}/bin/rustrover %u
       Icon=rustrover
       Type=Application

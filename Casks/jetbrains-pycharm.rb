@@ -50,7 +50,7 @@ cask "jetbrains-pycharm" do
       [Desktop Entry]
       Version=1.0
       Name=PyCharm
-      Comment=JetBrains Python IDE
+      Comment=The Only Python IDE you need
       Exec=#{HOMEBREW_PREFIX}/bin/pycharm %u
       Icon=pycharm
       Type=Application

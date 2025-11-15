@@ -48,7 +48,7 @@ cask "jetbrains-clion" do
       [Desktop Entry]
       Version=1.0
       Name=CLion
-      Comment=JetBrains C and C++ IDE
+      Comment=A cross-platform C and C++ IDE
       Exec=#{HOMEBREW_PREFIX}/bin/clion %u
       Icon=clion
       Type=Application

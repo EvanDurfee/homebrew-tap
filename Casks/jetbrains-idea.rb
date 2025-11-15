@@ -48,7 +48,7 @@ cask "jetbrains-idea" do
       [Desktop Entry]
       Version=1.0
       Name=Intellij IDEA
-      Comment=JetBrains Java IDE
+      Comment=The IDE for pro Java and Kotlin development
       Exec=#{HOMEBREW_PREFIX}/bin/idea %u
       Icon=idea
       Type=Application

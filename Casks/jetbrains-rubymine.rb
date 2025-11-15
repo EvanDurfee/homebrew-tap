@@ -48,12 +48,12 @@ cask "jetbrains-rubymine" do
       [Desktop Entry]
       Version=1.0
       Name=RubyMine
-      Comment=JetBrains Ruby on Rails IDE
+      Comment=A Ruby and Rails IDE
       Exec=#{HOMEBREW_PREFIX}/bin/rubymine %u
       Icon=rubymine
       Type=Application
       Categories=Development;IDE;
-      Keywords=jetbrains;ide;ruby;gem;
+      Keywords=jetbrains;ide;ruby;rails;
       Terminal=false
       StartupWMClass=jetbrains-rubymine
       StartupNotify=true

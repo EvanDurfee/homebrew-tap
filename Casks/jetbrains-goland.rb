@@ -48,7 +48,7 @@ cask "jetbrains-goland" do
       [Desktop Entry]
       Version=1.0
       Name=GoLand
-      Comment=JetBrains Golang IDE
+      Comment=An IDE for Go and Web
       Exec=#{HOMEBREW_PREFIX}/bin/goland %u
       Icon=goland
       Type=Application

@@ -48,7 +48,7 @@ cask "jetbrains-rider" do
       [Desktop Entry]
       Version=1.0
       Name=Rider
-      Comment=JetBrains .NET IDE
+      Comment=All-in-one IDE for .NET and game development
       Exec=#{HOMEBREW_PREFIX}/bin/rider %u
       Icon=rider
       Type=Application

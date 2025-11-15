@@ -48,7 +48,7 @@ cask "jetbrains-datagrip" do
       [Desktop Entry]
       Version=1.0
       Name=DataGrip
-      Comment=JetBrains Databases and SQL IDE
+      Comment=The IDE for databases and SQL
       Exec=#{HOMEBREW_PREFIX}/bin/datagrip %u
       Icon=datagrip
       Type=Application
