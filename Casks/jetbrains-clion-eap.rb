@@ -3,9 +3,9 @@ cask "jetbrains-clion-eap" do
        arm:   "-aarch64"
   os linux: "linux"
 
-  version "2025.3,253.28086.9"
-  sha256 x86_64_linux: "8d05123a9975fd9218388fc8945cd04ada9dfc4fdcf1b9f91072733189fdbd5e",
-         arm64_linux:  "b69a85ebf056db7cc03f1236209ec3fb15e43c1d414bbde2cc3971cb881a4335"
+  version "2025.3,253.28294.125"
+  sha256 x86_64_linux: "4519969bdedab477aaaa694f0c0f64c3b722b1c2a94dd8f32030f852377da497",
+         arm64_linux:  "b8333127e2e2b794396f74ae0e4eddf6507fbd781bbdd09b90b98fae1dda98e0"
 
   url "https://download.jetbrains.com/cpp/CLion-#{version.csv.second}#{arch}.tar.gz"
   name "CLion EAP"
