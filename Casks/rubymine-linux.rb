@@ -29,8 +29,8 @@ cask "rubymine-linux" do
   conflicts_with cask: "jetbrains-toolbox"
 
   binary "#{HOMEBREW_PREFIX}/Caskroom/rubymine-linux/#{version}/RubyMine-#{version.csv.first}/bin/rubymine"
-  artifact "rubymine.desktop",
-           target: "#{Dir.home}/.local/share/applications/rubymine.desktop"
+  artifact "jetbrains-rubymine.desktop",
+           target: "#{Dir.home}/.local/share/applications/jetbrains-rubymine.desktop"
   artifact "RubyMine-#{version.csv.first}/bin/rubymine.svg",
            target: "#{Dir.home}/.local/share/icons/hicolor/scalable/apps/rubymine.svg"
 
@@ -38,7 +38,7 @@ cask "rubymine-linux" do
     File.write("#{staged_path}/RubyMine-#{version.csv.first}/bin/rubymine64.vmoptions", "-Dide.no.platform.update=true\n", mode: "a+")
     FileUtils.mkdir_p("#{Dir.home}/.local/share/applications")
     FileUtils.mkdir_p("#{Dir.home}/.local/share/icons/hicolor/scalable/apps")
-    File.write("#{staged_path}/rubymine.desktop", <<~EOS)
+    File.write("#{staged_path}/jetbrains-rubymine.desktop", <<~EOS)
       [Desktop Entry]
       Version=1.0
       Name=RubyMine

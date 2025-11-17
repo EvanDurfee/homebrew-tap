@@ -29,8 +29,8 @@ cask "datagrip-linux" do
   conflicts_with cask: "jetbrains-toolbox"
 
   binary "#{HOMEBREW_PREFIX}/Caskroom/datagrip-linux/#{version}/DataGrip-#{version.csv.first}/bin/datagrip"
-  artifact "datagrip.desktop",
-           target: "#{Dir.home}/.local/share/applications/datagrip.desktop"
+  artifact "jetbrains-datagrip.desktop",
+           target: "#{Dir.home}/.local/share/applications/jetbrains-datagrip.desktop"
   artifact "DataGrip-#{version.csv.first}/bin/datagrip.svg",
            target: "#{Dir.home}/.local/share/icons/hicolor/scalable/apps/datagrip.svg"
 
@@ -38,7 +38,7 @@ cask "datagrip-linux" do
     File.write("#{staged_path}/DataGrip-#{version.csv.first}/bin/datagrip64.vmoptions", "-Dide.no.platform.update=true\n", mode: "a+")
     FileUtils.mkdir_p("#{Dir.home}/.local/share/applications")
     FileUtils.mkdir_p("#{Dir.home}/.local/share/icons/hicolor/scalable/apps")
-    File.write("#{staged_path}/datagrip.desktop", <<~EOS)
+    File.write("#{staged_path}/jetbrains-datagrip.desktop", <<~EOS)
       [Desktop Entry]
       Version=1.0
       Name=DataGrip

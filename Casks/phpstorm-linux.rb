@@ -29,8 +29,8 @@ cask "phpstorm-linux" do
   conflicts_with cask: "jetbrains-toolbox"
 
   binary "#{HOMEBREW_PREFIX}/Caskroom/phpstorm-linux/#{version}/PhpStorm-#{version.csv.second}/bin/phpstorm"
-  artifact "phpstorm.desktop",
-           target: "#{Dir.home}/.local/share/applications/phpstorm.desktop"
+  artifact "jetbrains-phpstorm.desktop",
+           target: "#{Dir.home}/.local/share/applications/jetbrains-phpstorm.desktop"
   artifact "PhpStorm-#{version.csv.second}/bin/phpstorm.svg",
            target: "#{Dir.home}/.local/share/icons/hicolor/scalable/apps/phpstorm.svg"
 
@@ -38,7 +38,7 @@ cask "phpstorm-linux" do
     File.write("#{staged_path}/PhpStorm-#{version.csv.second}/bin/phpstorm64.vmoptions", "-Dide.no.platform.update=true\n", mode: "a+")
     FileUtils.mkdir_p("#{Dir.home}/.local/share/applications")
     FileUtils.mkdir_p("#{Dir.home}/.local/share/icons/hicolor/scalable/apps")
-    File.write("#{staged_path}/phpstorm.desktop", <<~EOS)
+    File.write("#{staged_path}/jetbrains-phpstorm.desktop", <<~EOS)
       [Desktop Entry]
       Version=1.0
       Name=PhpStorm

@@ -29,8 +29,8 @@ cask "webstorm-linux" do
   conflicts_with cask: "jetbrains-toolbox"
 
   binary "#{HOMEBREW_PREFIX}/Caskroom/webstorm-linux/#{version}/WebStorm-#{version.csv.second}/bin/webstorm"
-  artifact "webstorm.desktop",
-           target: "#{Dir.home}/.local/share/applications/webstorm.desktop"
+  artifact "jetbrains-webstorm.desktop",
+           target: "#{Dir.home}/.local/share/applications/jetbrains-webstorm.desktop"
   artifact "WebStorm-#{version.csv.second}/bin/webstorm.svg",
            target: "#{Dir.home}/.local/share/icons/hicolor/scalable/apps/webstorm.svg"
 
@@ -38,7 +38,7 @@ cask "webstorm-linux" do
     File.write("#{staged_path}/WebStorm-#{version.csv.second}/bin/webstorm64.vmoptions", "-Dide.no.platform.update=true\n", mode: "a+")
     FileUtils.mkdir_p("#{Dir.home}/.local/share/applications")
     FileUtils.mkdir_p("#{Dir.home}/.local/share/icons/hicolor/scalable/apps")
-    File.write("#{staged_path}/webstorm.desktop", <<~EOS)
+    File.write("#{staged_path}/jetbrains-webstorm.desktop", <<~EOS)
       [Desktop Entry]
       Version=1.0
       Name=WebStorm

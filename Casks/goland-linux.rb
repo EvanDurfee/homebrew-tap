@@ -29,8 +29,8 @@ cask "goland-linux" do
   conflicts_with cask: "jetbrains-toolbox"
 
   binary "#{HOMEBREW_PREFIX}/Caskroom/goland-linux/#{version}/GoLand-#{version.csv.first}/bin/goland"
-  artifact "goland.desktop",
-           target: "#{Dir.home}/.local/share/applications/goland.desktop"
+  artifact "jetbrains-goland.desktop",
+           target: "#{Dir.home}/.local/share/applications/jetbrains-goland.desktop"
   artifact "GoLand-#{version.csv.first}/bin/goland.svg",
            target: "#{Dir.home}/.local/share/icons/hicolor/scalable/apps/goland.svg"
 
@@ -38,7 +38,7 @@ cask "goland-linux" do
     File.write("#{staged_path}/GoLand-#{version.csv.first}/bin/goland64.vmoptions", "-Dide.no.platform.update=true\n", mode: "a+")
     FileUtils.mkdir_p("#{Dir.home}/.local/share/applications")
     FileUtils.mkdir_p("#{Dir.home}/.local/share/icons/hicolor/scalable/apps")
-    File.write("#{staged_path}/goland.desktop", <<~EOS)
+    File.write("#{staged_path}/jetbrains-goland.desktop", <<~EOS)
       [Desktop Entry]
       Version=1.0
       Name=GoLand

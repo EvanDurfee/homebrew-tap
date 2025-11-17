@@ -29,8 +29,8 @@ cask "rider-linux" do
   conflicts_with cask: "jetbrains-toolbox"
 
   binary "#{HOMEBREW_PREFIX}/Caskroom/rider-linux/#{version}/JetBrains Rider-#{version.csv.first}/bin/rider"
-  artifact "rider.desktop",
-           target: "#{Dir.home}/.local/share/applications/rider.desktop"
+  artifact "jetbrains-rider.desktop",
+           target: "#{Dir.home}/.local/share/applications/jetbrains-rider.desktop"
   artifact "JetBrains Rider-#{version.csv.first}/bin/rider.svg",
            target: "#{Dir.home}/.local/share/icons/hicolor/scalable/apps/rider.svg"
 
@@ -38,7 +38,7 @@ cask "rider-linux" do
     File.write("#{staged_path}/JetBrains Rider-#{version.csv.first}/bin/rider64.vmoptions", "-Dide.no.platform.update=true\n", mode: "a+")
     FileUtils.mkdir_p("#{Dir.home}/.local/share/applications")
     FileUtils.mkdir_p("#{Dir.home}/.local/share/icons/hicolor/scalable/apps")
-    File.write("#{staged_path}/rider.desktop", <<~EOS)
+    File.write("#{staged_path}/jetbrains-rider.desktop", <<~EOS)
       [Desktop Entry]
       Version=1.0
       Name=Rider

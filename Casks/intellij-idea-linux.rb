@@ -29,8 +29,8 @@ cask "intellij-idea-linux" do
   conflicts_with cask: "jetbrains-toolbox"
 
   binary "#{HOMEBREW_PREFIX}/Caskroom/intellij-idea-linux/#{version}/idea-IU-#{version.csv.second}/bin/idea"
-  artifact "idea.desktop",
-           target: "#{Dir.home}/.local/share/applications/idea.desktop"
+  artifact "jetbrains-idea.desktop",
+           target: "#{Dir.home}/.local/share/applications/jetbrains-idea.desktop"
   artifact "idea-IU-#{version.csv.second}/bin/idea.svg",
            target: "#{Dir.home}/.local/share/icons/hicolor/scalable/apps/idea.svg"
 
@@ -38,7 +38,7 @@ cask "intellij-idea-linux" do
     File.write("#{staged_path}/idea-IU-#{version.csv.second}/bin/idea64.vmoptions", "-Dide.no.platform.update=true\n", mode: "a+")
     FileUtils.mkdir_p("#{Dir.home}/.local/share/applications")
     FileUtils.mkdir_p("#{Dir.home}/.local/share/icons/hicolor/scalable/apps")
-    File.write("#{staged_path}/idea.desktop", <<~EOS)
+    File.write("#{staged_path}/jetbrains-idea.desktop", <<~EOS)
       [Desktop Entry]
       Version=1.0
       Name=Intellij IDEA

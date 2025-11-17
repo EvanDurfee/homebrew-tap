@@ -29,8 +29,8 @@ cask "dataspell-linux" do
   conflicts_with cask: "jetbrains-toolbox"
 
   binary "#{HOMEBREW_PREFIX}/Caskroom/dataspell-linux/#{version}/dataspell-#{version.csv.first}/bin/dataspell"
-  artifact "dataspell.desktop",
-           target: "#{Dir.home}/.local/share/applications/dataspell.desktop"
+  artifact "jetbrains-dataspell.desktop",
+           target: "#{Dir.home}/.local/share/applications/jetbrains-dataspell.desktop"
   artifact "dataspell-#{version.csv.first}/bin/dataspell.svg",
            target: "#{Dir.home}/.local/share/icons/hicolor/scalable/apps/dataspell.svg"
 
@@ -38,7 +38,7 @@ cask "dataspell-linux" do
     File.write("#{staged_path}/dataspell-#{version.csv.first}/bin/dataspell64.vmoptions", "-Dide.no.platform.update=true\n", mode: "a+")
     FileUtils.mkdir_p("#{Dir.home}/.local/share/applications")
     FileUtils.mkdir_p("#{Dir.home}/.local/share/icons/hicolor/scalable/apps")
-    File.write("#{staged_path}/dataspell.desktop", <<~EOS)
+    File.write("#{staged_path}/jetbrains-dataspell.desktop", <<~EOS)
       [Desktop Entry]
       Version=1.0
       Name=DataSpell

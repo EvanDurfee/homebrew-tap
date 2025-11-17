@@ -29,8 +29,8 @@ cask "rustrover-linux" do
   conflicts_with cask: "jetbrains-toolbox"
 
   binary "#{HOMEBREW_PREFIX}/Caskroom/rustrover-linux/#{version}/RustRover-#{version.csv.first}/bin/rustrover"
-  artifact "rustrover.desktop",
-           target: "#{Dir.home}/.local/share/applications/rustrover.desktop"
+  artifact "jetbrains-rustrover.desktop",
+           target: "#{Dir.home}/.local/share/applications/jetbrains-rustrover.desktop"
   artifact "RustRover-#{version.csv.first}/bin/rustrover.svg",
            target: "#{Dir.home}/.local/share/icons/hicolor/scalable/apps/rustrover.svg"
 
@@ -38,7 +38,7 @@ cask "rustrover-linux" do
     File.write("#{staged_path}/RustRover-#{version.csv.first}/bin/rustrover64.vmoptions", "-Dide.no.platform.update=true\n", mode: "a+")
     FileUtils.mkdir_p("#{Dir.home}/.local/share/applications")
     FileUtils.mkdir_p("#{Dir.home}/.local/share/icons/hicolor/scalable/apps")
-    File.write("#{staged_path}/rustrover.desktop", <<~EOS)
+    File.write("#{staged_path}/jetbrains-rustrover.desktop", <<~EOS)
       [Desktop Entry]
       Version=1.0
       Name=RustRover

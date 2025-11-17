@@ -29,8 +29,8 @@ cask "clion-linux" do
   conflicts_with cask: "jetbrains-toolbox"
 
   binary "#{HOMEBREW_PREFIX}/Caskroom/clion-linux/#{version}/clion-#{version.csv.first}/bin/clion"
-  artifact "clion.desktop",
-           target: "#{Dir.home}/.local/share/applications/clion.desktop"
+  artifact "jetbrains-clion.desktop",
+           target: "#{Dir.home}/.local/share/applications/jetbrains-clion.desktop"
   artifact "clion-#{version.csv.first}/bin/clion.svg",
            target: "#{Dir.home}/.local/share/icons/hicolor/scalable/apps/clion.svg"
 
@@ -38,7 +38,7 @@ cask "clion-linux" do
     File.write("#{staged_path}/clion-#{version.csv.first}/bin/clion64.vmoptions", "-Dide.no.platform.update=true\n", mode: "a+")
     FileUtils.mkdir_p("#{Dir.home}/.local/share/applications")
     FileUtils.mkdir_p("#{Dir.home}/.local/share/icons/hicolor/scalable/apps")
-    File.write("#{staged_path}/clion.desktop", <<~EOS)
+    File.write("#{staged_path}/jetbrains-clion.desktop", <<~EOS)
       [Desktop Entry]
       Version=1.0
       Name=CLion

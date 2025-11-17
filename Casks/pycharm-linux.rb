@@ -31,8 +31,8 @@ cask "pycharm-linux" do
   conflicts_with cask: "jetbrains-toolbox"
 
   binary "#{HOMEBREW_PREFIX}/Caskroom/pycharm-linux/#{version}/pycharm-#{version.csv.first}/bin/pycharm"
-  artifact "pycharm.desktop",
-           target: "#{Dir.home}/.local/share/applications/pycharm.desktop"
+  artifact "jetbrains-pycharm.desktop",
+           target: "#{Dir.home}/.local/share/applications/jetbrains-pycharm.desktop"
   artifact "pycharm-#{version.csv.first}/bin/pycharm.svg",
            target: "#{Dir.home}/.local/share/icons/hicolor/scalable/apps/pycharm.svg"
 
@@ -40,7 +40,7 @@ cask "pycharm-linux" do
     File.write("#{staged_path}/pycharm-#{version.csv.first}/bin/pycharm64.vmoptions", "-Dide.no.platform.update=true\n", mode: "a+")
     FileUtils.mkdir_p("#{Dir.home}/.local/share/applications")
     FileUtils.mkdir_p("#{Dir.home}/.local/share/icons/hicolor/scalable/apps")
-    File.write("#{staged_path}/pycharm.desktop", <<~EOS)
+    File.write("#{staged_path}/jetbrains-pycharm.desktop", <<~EOS)
       [Desktop Entry]
       Version=1.0
       Name=PyCharm
