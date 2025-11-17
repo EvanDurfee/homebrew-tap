@@ -26,7 +26,7 @@ cask "rider-linux" do
   end
 
   auto_updates false
-  conflicts_with cask: "jetbrains-toolbox"
+  conflicts_with cask: "jetbrains-toolbox-linux"
 
   binary "#{HOMEBREW_PREFIX}/Caskroom/rider-linux/#{version}/JetBrains Rider-#{version.csv.first}/bin/rider"
   artifact "jetbrains-rider.desktop",

@@ -26,7 +26,7 @@ cask "rubymine-linux" do
   end
 
   auto_updates false
-  conflicts_with cask: "jetbrains-toolbox"
+  conflicts_with cask: "jetbrains-toolbox-linux"
 
   binary "#{HOMEBREW_PREFIX}/Caskroom/rubymine-linux/#{version}/RubyMine-#{version.csv.first}/bin/rubymine"
   artifact "jetbrains-rubymine.desktop",

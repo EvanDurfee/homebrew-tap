@@ -26,7 +26,7 @@ cask "datagrip-linux" do
   end
 
   auto_updates false
-  conflicts_with cask: "jetbrains-toolbox"
+  conflicts_with cask: "jetbrains-toolbox-linux"
 
   binary "#{HOMEBREW_PREFIX}/Caskroom/datagrip-linux/#{version}/DataGrip-#{version.csv.first}/bin/datagrip"
   artifact "jetbrains-datagrip.desktop",

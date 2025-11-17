@@ -26,7 +26,7 @@ cask "intellij-idea-linux" do
   end
 
   auto_updates false
-  conflicts_with cask: "jetbrains-toolbox"
+  conflicts_with cask: "jetbrains-toolbox-linux"
 
   binary "#{HOMEBREW_PREFIX}/Caskroom/intellij-idea-linux/#{version}/idea-IU-#{version.csv.second}/bin/idea"
   artifact "jetbrains-idea.desktop",

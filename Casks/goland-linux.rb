@@ -26,7 +26,7 @@ cask "goland-linux" do
   end
 
   auto_updates false
-  conflicts_with cask: "jetbrains-toolbox"
+  conflicts_with cask: "jetbrains-toolbox-linux"
 
   binary "#{HOMEBREW_PREFIX}/Caskroom/goland-linux/#{version}/GoLand-#{version.csv.first}/bin/goland"
   artifact "jetbrains-goland.desktop",
