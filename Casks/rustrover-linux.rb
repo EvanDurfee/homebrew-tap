@@ -1,4 +1,4 @@
-cask "jetbrains-rustrover" do
+cask "rustrover-linux" do
   arch intel: "",
        arm:   "-aarch64"
   os linux: "linux"
@@ -26,7 +26,7 @@ cask "jetbrains-rustrover" do
   end
 
   auto_updates false
-  conflicts_with cask: ["jetbrains-toolbox", "jetbrains-rustrover-eap"]
+  conflicts_with cask: ["jetbrains-toolbox"]
 
   # shim script (https://github.com/Homebrew/homebrew-cask/issues/18809)
   shimscript = "#{staged_path}/rustrover.wrapper.sh"
@@ -40,7 +40,7 @@ cask "jetbrains-rustrover" do
     File.write("#{staged_path}/RustRover-#{version.csv.first}/bin/rustrover64.vmoptions", "-Dide.no.platform.update=true\n", mode: "a+")
     File.write shimscript, <<~EOS
       #!/bin/sh
-      exec '#{HOMEBREW_PREFIX}/Caskroom/jetbrains-rustrover/#{version}/RustRover-#{version.csv.first}/bin/rustrover' "$@"
+      exec '#{HOMEBREW_PREFIX}/Caskroom/rustrover-linux/#{version}/RustRover-#{version.csv.first}/bin/rustrover' "$@"
     EOS
     FileUtils.mkdir_p("#{Dir.home}/.local/share/applications")
     FileUtils.mkdir_p("#{Dir.home}/.local/share/icons/hicolor/scalable/apps")

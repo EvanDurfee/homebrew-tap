@@ -1,4 +1,4 @@
-cask "jetbrains-rubymine" do
+cask "rubymine-linux" do
   arch intel: "",
        arm:   "-aarch64"
   os linux: "linux"
@@ -26,7 +26,7 @@ cask "jetbrains-rubymine" do
   end
 
   auto_updates false
-  conflicts_with cask: ["jetbrains-toolbox", "jetbrains-rubymine-eap"]
+  conflicts_with cask: ["jetbrains-toolbox"]
 
   # shim script (https://github.com/Homebrew/homebrew-cask/issues/18809)
   shimscript = "#{staged_path}/rubymine.wrapper.sh"
@@ -40,7 +40,7 @@ cask "jetbrains-rubymine" do
     File.write("#{staged_path}/RubyMine-#{version.csv.first}/bin/rubymine64.vmoptions", "-Dide.no.platform.update=true\n", mode: "a+")
     File.write shimscript, <<~EOS
       #!/bin/sh
-      exec '#{HOMEBREW_PREFIX}/Caskroom/jetbrains-rubymine/#{version}/RubyMine-#{version.csv.first}/bin/rubymine' "$@"
+      exec '#{HOMEBREW_PREFIX}/Caskroom/rubymine-linux/#{version}/RubyMine-#{version.csv.first}/bin/rubymine' "$@"
     EOS
     FileUtils.mkdir_p("#{Dir.home}/.local/share/applications")
     FileUtils.mkdir_p("#{Dir.home}/.local/share/icons/hicolor/scalable/apps")

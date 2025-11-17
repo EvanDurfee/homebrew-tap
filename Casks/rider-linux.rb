@@ -1,4 +1,4 @@
-cask "jetbrains-rider" do
+cask "rider-linux" do
   arch intel: "",
        arm:   "-aarch64"
   os linux: "linux"
@@ -26,7 +26,7 @@ cask "jetbrains-rider" do
   end
 
   auto_updates false
-  conflicts_with cask: ["jetbrains-toolbox", "jetbrains-rider-eap"]
+  conflicts_with cask: ["jetbrains-toolbox"]
 
   # shim script (https://github.com/Homebrew/homebrew-cask/issues/18809)
   shimscript = "#{staged_path}/rider.wrapper.sh"
@@ -40,7 +40,7 @@ cask "jetbrains-rider" do
     File.write("#{staged_path}/JetBrains Rider-#{version.csv.first}/bin/rider64.vmoptions", "-Dide.no.platform.update=true\n", mode: "a+")
     File.write shimscript, <<~EOS
       #!/bin/sh
-      exec '#{HOMEBREW_PREFIX}/Caskroom/jetbrains-rider/#{version}/JetBrains Rider-#{version.csv.first}/bin/rider' "$@"
+      exec '#{HOMEBREW_PREFIX}/Caskroom/rider-linux/#{version}/JetBrains Rider-#{version.csv.first}/bin/rider' "$@"
     EOS
     FileUtils.mkdir_p("#{Dir.home}/.local/share/applications")
     FileUtils.mkdir_p("#{Dir.home}/.local/share/icons/hicolor/scalable/apps")

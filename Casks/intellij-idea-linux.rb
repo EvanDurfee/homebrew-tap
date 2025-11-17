@@ -1,4 +1,4 @@
-cask "jetbrains-idea" do
+cask "intellij-idea-linux" do
   arch intel: "",
        arm:   "-aarch64"
   os linux: "linux"
@@ -26,7 +26,7 @@ cask "jetbrains-idea" do
   end
 
   auto_updates false
-  conflicts_with cask: ["jetbrains-toolbox", "jetbrains-idea-eap"]
+  conflicts_with cask: ["jetbrains-toolbox"]
 
   # shim script (https://github.com/Homebrew/homebrew-cask/issues/18809)
   shimscript = "#{staged_path}/idea.wrapper.sh"
@@ -40,7 +40,7 @@ cask "jetbrains-idea" do
     File.write("#{staged_path}/idea-IU-#{version.csv.second}/bin/idea64.vmoptions", "-Dide.no.platform.update=true\n", mode: "a+")
     File.write shimscript, <<~EOS
       #!/bin/sh
-      exec '#{HOMEBREW_PREFIX}/Caskroom/jetbrains-idea/#{version}/idea-IU-#{version.csv.second}/bin/idea' "$@"
+      exec '#{HOMEBREW_PREFIX}/Caskroom/intellij-idea-linux/#{version}/idea-IU-#{version.csv.second}/bin/idea' "$@"
     EOS
     FileUtils.mkdir_p("#{Dir.home}/.local/share/applications")
     FileUtils.mkdir_p("#{Dir.home}/.local/share/icons/hicolor/scalable/apps")

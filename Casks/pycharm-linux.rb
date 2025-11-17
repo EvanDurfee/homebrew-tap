@@ -1,4 +1,4 @@
-cask "jetbrains-pycharm" do
+cask "pycharm-linux" do
   arch intel: "",
        arm:   "-aarch64"
   os linux: "linux"
@@ -28,7 +28,7 @@ cask "jetbrains-pycharm" do
   # The IDEs have their own auto-update, but it doesn't work with this setup
   # seemingly due to hard-links on the artifacts
   auto_updates false
-  conflicts_with cask: ["jetbrains-toolbox", "jetbrains-pycharm-eap"]
+  conflicts_with cask: ["jetbrains-toolbox"]
 
   # shim script (https://github.com/Homebrew/homebrew-cask/issues/18809)
   shimscript = "#{staged_path}/pycharm.wrapper.sh"
@@ -42,7 +42,7 @@ cask "jetbrains-pycharm" do
     File.write("#{staged_path}/pycharm-#{version.csv.first}/bin/pycharm64.vmoptions", "-Dide.no.platform.update=true\n", mode: "a+")
     File.write shimscript, <<~EOS
       #!/bin/sh
-      exec '#{HOMEBREW_PREFIX}/Caskroom/jetbrains-pycharm/#{version}/pycharm-#{version.csv.first}/bin/pycharm' "$@"
+      exec '#{HOMEBREW_PREFIX}/Caskroom/pycharm-linux/#{version}/pycharm-#{version.csv.first}/bin/pycharm' "$@"
     EOS
     FileUtils.mkdir_p("#{Dir.home}/.local/share/applications")
     FileUtils.mkdir_p("#{Dir.home}/.local/share/icons/hicolor/scalable/apps")

@@ -1,4 +1,4 @@
-cask "jetbrains-clion" do
+cask "clion-linux" do
   arch intel: "",
        arm:   "-aarch64"
   os linux: "linux"
@@ -26,7 +26,7 @@ cask "jetbrains-clion" do
   end
 
   auto_updates false
-  conflicts_with cask: ["jetbrains-toolbox", "jetbrains-clion-eap"]
+  conflicts_with cask: ["jetbrains-toolbox"]
 
   # shim script (https://github.com/Homebrew/homebrew-cask/issues/18809)
   shimscript = "#{staged_path}/clion.wrapper.sh"
@@ -40,7 +40,7 @@ cask "jetbrains-clion" do
     File.write("#{staged_path}/clion-#{version.csv.first}/bin/clion64.vmoptions", "-Dide.no.platform.update=true\n", mode: "a+")
     File.write shimscript, <<~EOS
       #!/bin/sh
-      exec '#{HOMEBREW_PREFIX}/Caskroom/jetbrains-clion/#{version}/clion-#{version.csv.first}/bin/clion' "$@"
+      exec '#{HOMEBREW_PREFIX}/Caskroom/clion-linux/#{version}/clion-#{version.csv.first}/bin/clion' "$@"
     EOS
     FileUtils.mkdir_p("#{Dir.home}/.local/share/applications")
     FileUtils.mkdir_p("#{Dir.home}/.local/share/icons/hicolor/scalable/apps")
