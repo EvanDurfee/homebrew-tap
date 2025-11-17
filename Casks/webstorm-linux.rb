@@ -42,12 +42,12 @@ cask "webstorm-linux" do
       [Desktop Entry]
       Version=1.0
       Name=WebStorm
-      Comment=The IDE for data analysis
+      Comment=A JavaScript and TypeScript IDE
       Exec=#{HOMEBREW_PREFIX}/bin/webstorm %u
       Icon=webstorm
       Type=Application
       Categories=Development;IDE;
-      Keywords=jetbrains;ide;python;r;
+      Keywords=jetbrains;ide;javascript;typescript;
       Terminal=false
       StartupWMClass=jetbrains-webstorm
       StartupNotify=true
