@@ -26,11 +26,9 @@ cask "webstorm-linux" do
   end
 
   auto_updates false
-  conflicts_with cask: ["jetbrains-toolbox"]
+  conflicts_with cask: "jetbrains-toolbox"
 
-  # shim script (https://github.com/Homebrew/homebrew-cask/issues/18809)
-  shimscript = "#{staged_path}/webstorm.wrapper.sh"
-  binary shimscript, target: "webstorm"
+  binary "#{HOMEBREW_PREFIX}/Caskroom/webstorm-linux/#{version}/WebStorm-#{version.csv.second}/bin/webstorm"
   artifact "webstorm.desktop",
            target: "#{Dir.home}/.local/share/applications/webstorm.desktop"
   artifact "WebStorm-#{version.csv.second}/bin/webstorm.svg",
@@ -38,10 +36,6 @@ cask "webstorm-linux" do
 
   preflight do
     File.write("#{staged_path}/WebStorm-#{version.csv.second}/bin/webstorm64.vmoptions", "-Dide.no.platform.update=true\n", mode: "a+")
-    File.write shimscript, <<~EOS
-      #!/bin/sh
-      exec '#{HOMEBREW_PREFIX}/Caskroom/webstorm-linux/#{version}/WebStorm-#{version.csv.second}/bin/webstorm' "$@"
-    EOS
     FileUtils.mkdir_p("#{Dir.home}/.local/share/applications")
     FileUtils.mkdir_p("#{Dir.home}/.local/share/icons/hicolor/scalable/apps")
     File.write("#{staged_path}/webstorm.desktop", <<~EOS)

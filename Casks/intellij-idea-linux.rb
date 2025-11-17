@@ -26,11 +26,9 @@ cask "intellij-idea-linux" do
   end
 
   auto_updates false
-  conflicts_with cask: ["jetbrains-toolbox"]
+  conflicts_with cask: "jetbrains-toolbox"
 
-  # shim script (https://github.com/Homebrew/homebrew-cask/issues/18809)
-  shimscript = "#{staged_path}/idea.wrapper.sh"
-  binary shimscript, target: "idea"
+  binary "#{HOMEBREW_PREFIX}/Caskroom/intellij-idea-linux/#{version}/idea-IU-#{version.csv.second}/bin/idea"
   artifact "idea.desktop",
            target: "#{Dir.home}/.local/share/applications/idea.desktop"
   artifact "idea-IU-#{version.csv.second}/bin/idea.svg",
@@ -38,10 +36,6 @@ cask "intellij-idea-linux" do
 
   preflight do
     File.write("#{staged_path}/idea-IU-#{version.csv.second}/bin/idea64.vmoptions", "-Dide.no.platform.update=true\n", mode: "a+")
-    File.write shimscript, <<~EOS
-      #!/bin/sh
-      exec '#{HOMEBREW_PREFIX}/Caskroom/intellij-idea-linux/#{version}/idea-IU-#{version.csv.second}/bin/idea' "$@"
-    EOS
     FileUtils.mkdir_p("#{Dir.home}/.local/share/applications")
     FileUtils.mkdir_p("#{Dir.home}/.local/share/icons/hicolor/scalable/apps")
     File.write("#{staged_path}/idea.desktop", <<~EOS)

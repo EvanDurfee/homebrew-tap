@@ -26,11 +26,9 @@ cask "goland-linux" do
   end
 
   auto_updates false
-  conflicts_with cask: ["jetbrains-toolbox"]
+  conflicts_with cask: "jetbrains-toolbox"
 
-  # shim script (https://github.com/Homebrew/homebrew-cask/issues/18809)
-  shimscript = "#{staged_path}/goland.wrapper.sh"
-  binary shimscript, target: "goland"
+  binary "#{HOMEBREW_PREFIX}/Caskroom/goland-linux/#{version}/GoLand-#{version.csv.first}/bin/goland"
   artifact "goland.desktop",
            target: "#{Dir.home}/.local/share/applications/goland.desktop"
   artifact "GoLand-#{version.csv.first}/bin/goland.svg",
@@ -38,10 +36,6 @@ cask "goland-linux" do
 
   preflight do
     File.write("#{staged_path}/GoLand-#{version.csv.first}/bin/goland64.vmoptions", "-Dide.no.platform.update=true\n", mode: "a+")
-    File.write shimscript, <<~EOS
-      #!/bin/sh
-      exec '#{HOMEBREW_PREFIX}/Caskroom/goland-linux/#{version}/GoLand-#{version.csv.first}/bin/goland' "$@"
-    EOS
     FileUtils.mkdir_p("#{Dir.home}/.local/share/applications")
     FileUtils.mkdir_p("#{Dir.home}/.local/share/icons/hicolor/scalable/apps")
     File.write("#{staged_path}/goland.desktop", <<~EOS)

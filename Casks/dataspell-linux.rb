@@ -26,11 +26,9 @@ cask "dataspell-linux" do
   end
 
   auto_updates false
-  conflicts_with cask: ["jetbrains-toolbox"]
+  conflicts_with cask: "jetbrains-toolbox"
 
-  # shim script (https://github.com/Homebrew/homebrew-cask/issues/18809)
-  shimscript = "#{staged_path}/dataspell.wrapper.sh"
-  binary shimscript, target: "dataspell"
+  binary "#{HOMEBREW_PREFIX}/Caskroom/dataspell-linux/#{version}/dataspell-#{version.csv.first}/bin/dataspell"
   artifact "dataspell.desktop",
            target: "#{Dir.home}/.local/share/applications/dataspell.desktop"
   artifact "dataspell-#{version.csv.first}/bin/dataspell.svg",
@@ -38,10 +36,6 @@ cask "dataspell-linux" do
 
   preflight do
     File.write("#{staged_path}/dataspell-#{version.csv.first}/bin/dataspell64.vmoptions", "-Dide.no.platform.update=true\n", mode: "a+")
-    File.write shimscript, <<~EOS
-      #!/bin/sh
-      exec '#{HOMEBREW_PREFIX}/Caskroom/dataspell-linux/#{version}/dataspell-#{version.csv.first}/bin/dataspell' "$@"
-    EOS
     FileUtils.mkdir_p("#{Dir.home}/.local/share/applications")
     FileUtils.mkdir_p("#{Dir.home}/.local/share/icons/hicolor/scalable/apps")
     File.write("#{staged_path}/dataspell.desktop", <<~EOS)

@@ -26,11 +26,9 @@ cask "phpstorm-linux" do
   end
 
   auto_updates false
-  conflicts_with cask: ["jetbrains-toolbox"]
+  conflicts_with cask: "jetbrains-toolbox"
 
-  # shim script (https://github.com/Homebrew/homebrew-cask/issues/18809)
-  shimscript = "#{staged_path}/phpstorm.wrapper.sh"
-  binary shimscript, target: "phpstorm"
+  binary "#{HOMEBREW_PREFIX}/Caskroom/phpstorm-linux/#{version}/PhpStorm-#{version.csv.second}/bin/phpstorm"
   artifact "phpstorm.desktop",
            target: "#{Dir.home}/.local/share/applications/phpstorm.desktop"
   artifact "PhpStorm-#{version.csv.second}/bin/phpstorm.svg",
@@ -38,10 +36,6 @@ cask "phpstorm-linux" do
 
   preflight do
     File.write("#{staged_path}/PhpStorm-#{version.csv.second}/bin/phpstorm64.vmoptions", "-Dide.no.platform.update=true\n", mode: "a+")
-    File.write shimscript, <<~EOS
-      #!/bin/sh
-      exec '#{HOMEBREW_PREFIX}/Caskroom/phpstorm-linux/#{version}/PhpStorm-#{version.csv.second}/bin/phpstorm' "$@"
-    EOS
     FileUtils.mkdir_p("#{Dir.home}/.local/share/applications")
     FileUtils.mkdir_p("#{Dir.home}/.local/share/icons/hicolor/scalable/apps")
     File.write("#{staged_path}/phpstorm.desktop", <<~EOS)

@@ -26,11 +26,9 @@ cask "datagrip-linux" do
   end
 
   auto_updates false
-  conflicts_with cask: ["jetbrains-toolbox"]
+  conflicts_with cask: "jetbrains-toolbox"
 
-  # shim script (https://github.com/Homebrew/homebrew-cask/issues/18809)
-  shimscript = "#{staged_path}/datagrip.wrapper.sh"
-  binary shimscript, target: "datagrip"
+  binary "#{HOMEBREW_PREFIX}/Caskroom/datagrip-linux/#{version}/DataGrip-#{version.csv.first}/bin/datagrip"
   artifact "datagrip.desktop",
            target: "#{Dir.home}/.local/share/applications/datagrip.desktop"
   artifact "DataGrip-#{version.csv.first}/bin/datagrip.svg",
@@ -38,10 +36,6 @@ cask "datagrip-linux" do
 
   preflight do
     File.write("#{staged_path}/DataGrip-#{version.csv.first}/bin/datagrip64.vmoptions", "-Dide.no.platform.update=true\n", mode: "a+")
-    File.write shimscript, <<~EOS
-      #!/bin/sh
-      exec '#{HOMEBREW_PREFIX}/Caskroom/datagrip-linux/#{version}/DataGrip-#{version.csv.first}/bin/datagrip' "$@"
-    EOS
     FileUtils.mkdir_p("#{Dir.home}/.local/share/applications")
     FileUtils.mkdir_p("#{Dir.home}/.local/share/icons/hicolor/scalable/apps")
     File.write("#{staged_path}/datagrip.desktop", <<~EOS)
