@@ -25,8 +25,6 @@ cask "pycharm-linux" do
     end
   end
 
-  # The IDEs have their own auto-update, but it doesn't work with this setup
-  # seemingly due to hard-links on the artifacts
   auto_updates false
   conflicts_with cask: "jetbrains-toolbox"
 
