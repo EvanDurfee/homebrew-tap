@@ -25,7 +25,7 @@ cask "vscodium-linux" do
   artifact "codium-url-handler.desktop",
            target: "#{Dir.home}/.local/share/applications/codium-url-handler.desktop"
   artifact "resources/app/resources/linux/code.png",
-           target: "#{Dir.home}/.local/share/icons/vscodium.png"  # 1024x1024, too big for hicolor
+           target: "#{Dir.home}/.local/share/icons/vscodium.png" # 1024x1024, too big for hicolor
 
   preflight do
     FileUtils.mkdir_p("#{Dir.home}/.local/share/applications")
