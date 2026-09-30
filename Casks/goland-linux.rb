@@ -1,11 +1,10 @@
 cask "goland-linux" do
-  arch intel: "",
-       arm:   "-aarch64"
+  arch arm: "-aarch64"
   os linux: "linux"
 
   version "2026.1.3,261.25134.147"
-  sha256 x86_64_linux: "b11f4110054558cc6a81d54d03cd595c27391abd2b46fb0e91cdc1fc0391b83c",
-         arm64_linux:  "fedfb1ed8bf497027d70e361514c9bc4fcb6d114661c6cc159bc08a7ee4df73f"
+  sha256 arm64_linux:  "fedfb1ed8bf497027d70e361514c9bc4fcb6d114661c6cc159bc08a7ee4df73f",
+         x86_64_linux: "b11f4110054558cc6a81d54d03cd595c27391abd2b46fb0e91cdc1fc0391b83c"
 
   url "https://download.jetbrains.com/go/goland-#{version.csv.first}#{arch}.tar.gz"
   name "GoLand"
@@ -34,16 +33,19 @@ cask "goland-linux" do
   artifact "GoLand-#{version.csv.first}/bin/goland.svg",
            target: "#{Dir.home}/.local/share/icons/hicolor/scalable/apps/goland.svg"
 
-  preflight do
-    File.write("#{staged_path}/GoLand-#{version.csv.first}/bin/goland64.vmoptions", "-Dide.no.platform.update=true\n", mode: "a+")
-    FileUtils.mkdir_p("#{Dir.home}/.local/share/applications")
-    FileUtils.mkdir_p("#{Dir.home}/.local/share/icons/hicolor/scalable/apps")
-    File.write("#{staged_path}/jetbrains-goland.desktop", <<~EOS)
+  preflight_steps do
+    run "/bin/sh",
+        args:  ["-c", "for f in */bin/*64.vmoptions; do printf -- '%s\\n' \"$1\" >> \"$f\"; done", "sh",
+                "-Dide.no.platform.update=true"],
+        chdir: "."
+    mkdir_p ".local/share/applications", base: :home
+    mkdir_p ".local/share/icons/hicolor/scalable/apps", base: :home
+    write_file "jetbrains-goland.desktop", <<~EOS
       [Desktop Entry]
       Version=1.0
       Name=GoLand
       Comment=An IDE for Go and Web
-      Exec=#{HOMEBREW_PREFIX}/bin/goland %u
+      Exec={{HOMEBREW_PREFIX}}/bin/goland %u
       Icon=goland
       Type=Application
       Categories=Development;IDE;
@@ -54,8 +56,8 @@ cask "goland-linux" do
     EOS
   end
 
-  postflight do
-    system "/usr/bin/xdg-icon-resource", "forceupdate"
+  postflight_steps do
+    run "/usr/bin/xdg-icon-resource", args: ["forceupdate"]
   end
 
   zap trash: [

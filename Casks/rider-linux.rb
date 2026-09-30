@@ -1,11 +1,10 @@
 cask "rider-linux" do
-  arch intel: "",
-       arm:   "-aarch64"
+  arch arm: "-aarch64"
   os linux: "linux"
 
   version "2026.1.3,261.25134.178"
-  sha256 x86_64_linux: "7f43eb95dffc33b5413d81d0c11441fd6ce04db4c2a6a2ceb7e0ddf5f6879136",
-         arm64_linux:  "3e520da1bdb191e8d4f7d630b991441d251f2698c1a5bcba65e50867bc86c6c5"
+  sha256 arm64_linux:  "3e520da1bdb191e8d4f7d630b991441d251f2698c1a5bcba65e50867bc86c6c5",
+         x86_64_linux: "7f43eb95dffc33b5413d81d0c11441fd6ce04db4c2a6a2ceb7e0ddf5f6879136"
 
   url "https://download.jetbrains.com/rider/JetBrains.Rider-#{version.csv.first}#{arch}.tar.gz"
   name "Rider"
@@ -34,16 +33,19 @@ cask "rider-linux" do
   artifact "JetBrains Rider-#{version.csv.first}/bin/rider.svg",
            target: "#{Dir.home}/.local/share/icons/hicolor/scalable/apps/rider.svg"
 
-  preflight do
-    File.write("#{staged_path}/JetBrains Rider-#{version.csv.first}/bin/rider64.vmoptions", "-Dide.no.platform.update=true\n", mode: "a+")
-    FileUtils.mkdir_p("#{Dir.home}/.local/share/applications")
-    FileUtils.mkdir_p("#{Dir.home}/.local/share/icons/hicolor/scalable/apps")
-    File.write("#{staged_path}/jetbrains-rider.desktop", <<~EOS)
+  preflight_steps do
+    run "/bin/sh",
+        args:  ["-c", "for f in */bin/*64.vmoptions; do printf -- '%s\\n' \"$1\" >> \"$f\"; done", "sh",
+                "-Dide.no.platform.update=true"],
+        chdir: "."
+    mkdir_p ".local/share/applications", base: :home
+    mkdir_p ".local/share/icons/hicolor/scalable/apps", base: :home
+    write_file "jetbrains-rider.desktop", <<~EOS
       [Desktop Entry]
       Version=1.0
       Name=Rider
       Comment=All-in-one IDE for .NET and game development
-      Exec=#{HOMEBREW_PREFIX}/bin/rider %u
+      Exec={{HOMEBREW_PREFIX}}/bin/rider %u
       Icon=rider
       Type=Application
       Categories=Development;IDE;
@@ -54,8 +56,8 @@ cask "rider-linux" do
     EOS
   end
 
-  postflight do
-    system "/usr/bin/xdg-icon-resource", "forceupdate"
+  postflight_steps do
+    run "/usr/bin/xdg-icon-resource", args: ["forceupdate"]
   end
 
   zap trash: [

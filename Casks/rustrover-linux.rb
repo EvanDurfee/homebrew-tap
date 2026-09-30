@@ -1,11 +1,10 @@
 cask "rustrover-linux" do
-  arch intel: "",
-       arm:   "-aarch64"
+  arch arm: "-aarch64"
   os linux: "linux"
 
   version "2026.1.3,261.25134.134"
-  sha256 x86_64_linux: "d3ebf4e73c6f16a5d5d7773ca15f5d4d3c2d3beb21832c03ef973052264069bd",
-         arm64_linux:  "499e0e91680019e49a7c5a359a5e5dbf9b4de6cbbe1e0cdb1214391b33ea19da"
+  sha256 arm64_linux:  "499e0e91680019e49a7c5a359a5e5dbf9b4de6cbbe1e0cdb1214391b33ea19da",
+         x86_64_linux: "d3ebf4e73c6f16a5d5d7773ca15f5d4d3c2d3beb21832c03ef973052264069bd"
 
   url "https://download.jetbrains.com/rustrover/RustRover-#{version.csv.first}#{arch}.tar.gz"
   name "RustRover"
@@ -34,16 +33,19 @@ cask "rustrover-linux" do
   artifact "RustRover-#{version.csv.first}/bin/rustrover.svg",
            target: "#{Dir.home}/.local/share/icons/hicolor/scalable/apps/rustrover.svg"
 
-  preflight do
-    File.write("#{staged_path}/RustRover-#{version.csv.first}/bin/rustrover64.vmoptions", "-Dide.no.platform.update=true\n", mode: "a+")
-    FileUtils.mkdir_p("#{Dir.home}/.local/share/applications")
-    FileUtils.mkdir_p("#{Dir.home}/.local/share/icons/hicolor/scalable/apps")
-    File.write("#{staged_path}/jetbrains-rustrover.desktop", <<~EOS)
+  preflight_steps do
+    run "/bin/sh",
+        args:  ["-c", "for f in */bin/*64.vmoptions; do printf -- '%s\\n' \"$1\" >> \"$f\"; done", "sh",
+                "-Dide.no.platform.update=true"],
+        chdir: "."
+    mkdir_p ".local/share/applications", base: :home
+    mkdir_p ".local/share/icons/hicolor/scalable/apps", base: :home
+    write_file "jetbrains-rustrover.desktop", <<~EOS
       [Desktop Entry]
       Version=1.0
       Name=RustRover
       Comment=A powerful IDE for Rust
-      Exec=#{HOMEBREW_PREFIX}/bin/rustrover %u
+      Exec={{HOMEBREW_PREFIX}}/bin/rustrover %u
       Icon=rustrover
       Type=Application
       Categories=Development;IDE;
@@ -54,8 +56,8 @@ cask "rustrover-linux" do
     EOS
   end
 
-  postflight do
-    system "/usr/bin/xdg-icon-resource", "forceupdate"
+  postflight_steps do
+    run "/usr/bin/xdg-icon-resource", args: ["forceupdate"]
   end
 
   zap trash: [

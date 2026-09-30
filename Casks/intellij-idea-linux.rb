@@ -1,11 +1,10 @@
 cask "intellij-idea-linux" do
-  arch intel: "",
-       arm:   "-aarch64"
+  arch arm: "-aarch64"
   os linux: "linux"
 
   version "2026.1.3,261.25134.95"
-  sha256 x86_64_linux: "a6f049716da1d09d9e0ec1500c60bf01a5ff8a0fe2419178dd1ff2fdb2b77563",
-         arm64_linux:  "7659e791609233c3e6bf67c1bfcc86f5fa1176477ca5815ae6125b0eae84a88b"
+  sha256 arm64_linux:  "7659e791609233c3e6bf67c1bfcc86f5fa1176477ca5815ae6125b0eae84a88b",
+         x86_64_linux: "a6f049716da1d09d9e0ec1500c60bf01a5ff8a0fe2419178dd1ff2fdb2b77563"
 
   url "https://download.jetbrains.com/idea/ideaIU-#{version.csv.first}#{arch}.tar.gz"
   name "IntelliJ IDEA Ultimate"
@@ -34,16 +33,19 @@ cask "intellij-idea-linux" do
   artifact "idea-IU-#{version.csv.second}/bin/idea.svg",
            target: "#{Dir.home}/.local/share/icons/hicolor/scalable/apps/idea.svg"
 
-  preflight do
-    File.write("#{staged_path}/idea-IU-#{version.csv.second}/bin/idea64.vmoptions", "-Dide.no.platform.update=true\n", mode: "a+")
-    FileUtils.mkdir_p("#{Dir.home}/.local/share/applications")
-    FileUtils.mkdir_p("#{Dir.home}/.local/share/icons/hicolor/scalable/apps")
-    File.write("#{staged_path}/jetbrains-idea.desktop", <<~EOS)
+  preflight_steps do
+    run "/bin/sh",
+        args:  ["-c", "for f in */bin/*64.vmoptions; do printf -- '%s\\n' \"$1\" >> \"$f\"; done", "sh",
+                "-Dide.no.platform.update=true"],
+        chdir: "."
+    mkdir_p ".local/share/applications", base: :home
+    mkdir_p ".local/share/icons/hicolor/scalable/apps", base: :home
+    write_file "jetbrains-idea.desktop", <<~EOS
       [Desktop Entry]
       Version=1.0
       Name=Intellij IDEA
       Comment=The IDE for pro Java and Kotlin development
-      Exec=#{HOMEBREW_PREFIX}/bin/idea %u
+      Exec={{HOMEBREW_PREFIX}}/bin/idea %u
       Icon=idea
       Type=Application
       Categories=Development;IDE;
@@ -54,8 +56,8 @@ cask "intellij-idea-linux" do
     EOS
   end
 
-  postflight do
-    system "/usr/bin/xdg-icon-resource", "forceupdate"
+  postflight_steps do
+    run "/usr/bin/xdg-icon-resource", args: ["forceupdate"]
   end
 
   zap trash: [

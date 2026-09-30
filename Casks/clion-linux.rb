@@ -1,11 +1,10 @@
 cask "clion-linux" do
-  arch intel: "",
-       arm:   "-aarch64"
+  arch arm: "-aarch64"
   os linux: "linux"
 
   version "2026.1.3,261.25134.137"
-  sha256 x86_64_linux: "c37221089e9f4af957a4b88f677dc35e3658b2135fe0dc9b2b8b951fd9013bf9",
-         arm64_linux:  "813a0c40c295db163ff52941aeb22c3d28a5837326e82acb735c2e7b10e67edc"
+  sha256 arm64_linux:  "813a0c40c295db163ff52941aeb22c3d28a5837326e82acb735c2e7b10e67edc",
+         x86_64_linux: "c37221089e9f4af957a4b88f677dc35e3658b2135fe0dc9b2b8b951fd9013bf9"
 
   url "https://download.jetbrains.com/cpp/CLion-#{version.csv.first}#{arch}.tar.gz"
   name "CLion"
@@ -34,16 +33,19 @@ cask "clion-linux" do
   artifact "clion-#{version.csv.first}/bin/clion.svg",
            target: "#{Dir.home}/.local/share/icons/hicolor/scalable/apps/clion.svg"
 
-  preflight do
-    File.write("#{staged_path}/clion-#{version.csv.first}/bin/clion64.vmoptions", "-Dide.no.platform.update=true\n", mode: "a+")
-    FileUtils.mkdir_p("#{Dir.home}/.local/share/applications")
-    FileUtils.mkdir_p("#{Dir.home}/.local/share/icons/hicolor/scalable/apps")
-    File.write("#{staged_path}/jetbrains-clion.desktop", <<~EOS)
+  preflight_steps do
+    run "/bin/sh",
+        args:  ["-c", "for f in */bin/*64.vmoptions; do printf -- '%s\\n' \"$1\" >> \"$f\"; done", "sh",
+                "-Dide.no.platform.update=true"],
+        chdir: "."
+    mkdir_p ".local/share/applications", base: :home
+    mkdir_p ".local/share/icons/hicolor/scalable/apps", base: :home
+    write_file "jetbrains-clion.desktop", <<~EOS
       [Desktop Entry]
       Version=1.0
       Name=CLion
       Comment=A cross-platform C and C++ IDE
-      Exec=#{HOMEBREW_PREFIX}/bin/clion %u
+      Exec={{HOMEBREW_PREFIX}}/bin/clion %u
       Icon=clion
       Type=Application
       Categories=Development;IDE;
@@ -54,8 +56,8 @@ cask "clion-linux" do
     EOS
   end
 
-  postflight do
-    system "/usr/bin/xdg-icon-resource", "forceupdate"
+  postflight_steps do
+    run "/usr/bin/xdg-icon-resource", args: ["forceupdate"]
   end
 
   zap trash: [
