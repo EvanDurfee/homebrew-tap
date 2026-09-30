@@ -27,16 +27,16 @@ cask "vscodium-linux" do
   artifact "resources/app/resources/linux/code.png",
            target: "#{Dir.home}/.local/share/icons/vscodium.png" # 1024x1024, too big for hicolor
 
-  preflight do
-    FileUtils.mkdir_p("#{Dir.home}/.local/share/applications")
-    FileUtils.mkdir_p("#{Dir.home}/.local/share/icons")
+  preflight_steps do
+    mkdir_p ".local/share/applications", base: :home
+    mkdir_p ".local/share/icons", base: :home
 
-    File.write("#{staged_path}/codium.desktop", <<~EOS)
+    write_file "codium.desktop", <<~EOS
       [Desktop Entry]
       Name=VSCodium
       Comment=Code Editing. Redefined.
       GenericName=Text Editor
-      Exec=#{HOMEBREW_PREFIX}/bin/codium %F
+      Exec={{HOMEBREW_PREFIX}}/bin/codium %F
       Icon=vscodium
       Type=Application
       StartupNotify=false
@@ -57,15 +57,15 @@ cask "vscodium-linux" do
       Name[ru]=Новое пустое окно
       Name[zh_CN]=新建空窗口
       Name[zh_TW]=開新空視窗
-      Exec=#{HOMEBREW_PREFIX}/bin/codium --new-window %F
+      Exec={{HOMEBREW_PREFIX}}/bin/codium --new-window %F
       Icon=vscodium
     EOS
-    File.write("#{staged_path}/codium-url-handler.desktop", <<~EOS)
+    write_file "codium-url-handler.desktop", <<~EOS
       [Desktop Entry]
       Name=VSCodium - URL Handler
       Comment=Code Editing. Redefined.
       GenericName=Text Editor
-      Exec=#{HOMEBREW_PREFIX}/bin/codium --open-url %U
+      Exec={{HOMEBREW_PREFIX}}/bin/codium --open-url %U
       Icon=vscodium
       Type=Application
       NoDisplay=true

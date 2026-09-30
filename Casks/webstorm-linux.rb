@@ -1,11 +1,10 @@
 cask "webstorm-linux" do
-  arch intel: "",
-       arm:   "-aarch64"
+  arch arm: "-aarch64"
   os linux: "linux"
 
   version "2026.1.3,261.25134.101"
-  sha256 x86_64_linux: "96bc88a15c68cadc83c9f8239e86d0ddef78c0822886620a2fcf1fc1fd88e3dc",
-         arm64_linux:  "a1941ac69555d0ee1694313a21af8acc7205d127d6401b9b045228a5244c6ef1"
+  sha256 arm64_linux:  "a1941ac69555d0ee1694313a21af8acc7205d127d6401b9b045228a5244c6ef1",
+         x86_64_linux: "96bc88a15c68cadc83c9f8239e86d0ddef78c0822886620a2fcf1fc1fd88e3dc"
 
   url "https://download.jetbrains.com/webstorm/WebStorm-#{version.csv.first}#{arch}.tar.gz"
   name "WebStorm"
@@ -34,16 +33,19 @@ cask "webstorm-linux" do
   artifact "WebStorm-#{version.csv.second}/bin/webstorm.svg",
            target: "#{Dir.home}/.local/share/icons/hicolor/scalable/apps/webstorm.svg"
 
-  preflight do
-    File.write("#{staged_path}/WebStorm-#{version.csv.second}/bin/webstorm64.vmoptions", "-Dide.no.platform.update=true\n", mode: "a+")
-    FileUtils.mkdir_p("#{Dir.home}/.local/share/applications")
-    FileUtils.mkdir_p("#{Dir.home}/.local/share/icons/hicolor/scalable/apps")
-    File.write("#{staged_path}/jetbrains-webstorm.desktop", <<~EOS)
+  preflight_steps do
+    run "/bin/sh",
+        args:  ["-c", "for f in */bin/*64.vmoptions; do printf -- '%s\\n' \"$1\" >> \"$f\"; done", "sh",
+                "-Dide.no.platform.update=true"],
+        chdir: "."
+    mkdir_p ".local/share/applications", base: :home
+    mkdir_p ".local/share/icons/hicolor/scalable/apps", base: :home
+    write_file "jetbrains-webstorm.desktop", <<~EOS
       [Desktop Entry]
       Version=1.0
       Name=WebStorm
       Comment=A JavaScript and TypeScript IDE
-      Exec=#{HOMEBREW_PREFIX}/bin/webstorm %u
+      Exec={{HOMEBREW_PREFIX}}/bin/webstorm %u
       Icon=webstorm
       Type=Application
       Categories=Development;IDE;
@@ -54,8 +56,8 @@ cask "webstorm-linux" do
     EOS
   end
 
-  postflight do
-    system "/usr/bin/xdg-icon-resource", "forceupdate"
+  postflight_steps do
+    run "/usr/bin/xdg-icon-resource", args: ["forceupdate"]
   end
 
   zap trash: [

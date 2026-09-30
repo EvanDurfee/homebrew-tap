@@ -1,11 +1,10 @@
 cask "phpstorm-linux" do
-  arch intel: "",
-       arm:   "-aarch64"
+  arch arm: "-aarch64"
   os linux: "linux"
 
   version "2026.1.3,261.25134.104"
-  sha256 x86_64_linux: "8576f629c09a34a2093866cdd19503c4c2ae5fef9d3b5151a31bc2e7cd152074",
-         arm64_linux:  "f80b38d6a7320af008088b6d3048b7d1bf2605366858a2b8ae3c63915c784d7b"
+  sha256 arm64_linux:  "f80b38d6a7320af008088b6d3048b7d1bf2605366858a2b8ae3c63915c784d7b",
+         x86_64_linux: "8576f629c09a34a2093866cdd19503c4c2ae5fef9d3b5151a31bc2e7cd152074"
 
   url "https://download.jetbrains.com/webide/PhpStorm-#{version.csv.first}#{arch}.tar.gz"
   name "PhpStorm"
@@ -34,16 +33,19 @@ cask "phpstorm-linux" do
   artifact "PhpStorm-#{version.csv.second}/bin/phpstorm.svg",
            target: "#{Dir.home}/.local/share/icons/hicolor/scalable/apps/phpstorm.svg"
 
-  preflight do
-    File.write("#{staged_path}/PhpStorm-#{version.csv.second}/bin/phpstorm64.vmoptions", "-Dide.no.platform.update=true\n", mode: "a+")
-    FileUtils.mkdir_p("#{Dir.home}/.local/share/applications")
-    FileUtils.mkdir_p("#{Dir.home}/.local/share/icons/hicolor/scalable/apps")
-    File.write("#{staged_path}/jetbrains-phpstorm.desktop", <<~EOS)
+  preflight_steps do
+    run "/bin/sh",
+        args:  ["-c", "for f in */bin/*64.vmoptions; do printf -- '%s\\n' \"$1\" >> \"$f\"; done", "sh",
+                "-Dide.no.platform.update=true"],
+        chdir: "."
+    mkdir_p ".local/share/applications", base: :home
+    mkdir_p ".local/share/icons/hicolor/scalable/apps", base: :home
+    write_file "jetbrains-phpstorm.desktop", <<~EOS
       [Desktop Entry]
       Version=1.0
       Name=PhpStorm
       Comment=A smart IDE for PHP and Web
-      Exec=#{HOMEBREW_PREFIX}/bin/phpstorm %u
+      Exec={{HOMEBREW_PREFIX}}/bin/phpstorm %u
       Icon=phpstorm
       Type=Application
       Categories=Development;IDE;
@@ -54,8 +56,8 @@ cask "phpstorm-linux" do
     EOS
   end
 
-  postflight do
-    system "/usr/bin/xdg-icon-resource", "forceupdate"
+  postflight_steps do
+    run "/usr/bin/xdg-icon-resource", args: ["forceupdate"]
   end
 
   zap trash: [

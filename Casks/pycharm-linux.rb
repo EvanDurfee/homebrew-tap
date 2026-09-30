@@ -1,11 +1,10 @@
 cask "pycharm-linux" do
-  arch intel: "",
-       arm:   "-aarch64"
+  arch arm: "-aarch64"
   os linux: "linux"
 
   version "2026.1.2,261.24374.152"
-  sha256 x86_64_linux: "91c775be16fb0859f9b18ebd456d88e131cadf337b0ce9f9d8ed187886561966",
-         arm64_linux:  "e6b4f25267afade04be6764f6bb16ea1d16159cae3490fbb4f58cc168ecffee3"
+  sha256 arm64_linux:  "e6b4f25267afade04be6764f6bb16ea1d16159cae3490fbb4f58cc168ecffee3",
+         x86_64_linux: "91c775be16fb0859f9b18ebd456d88e131cadf337b0ce9f9d8ed187886561966"
 
   url "https://download.jetbrains.com/python/pycharm-#{version.csv.first}#{arch}.tar.gz"
   name "PyCharm"
@@ -34,16 +33,19 @@ cask "pycharm-linux" do
   artifact "pycharm-#{version.csv.first}/bin/pycharm.svg",
            target: "#{Dir.home}/.local/share/icons/hicolor/scalable/apps/pycharm.svg"
 
-  preflight do
-    File.write("#{staged_path}/pycharm-#{version.csv.first}/bin/pycharm64.vmoptions", "-Dide.no.platform.update=true\n", mode: "a+")
-    FileUtils.mkdir_p("#{Dir.home}/.local/share/applications")
-    FileUtils.mkdir_p("#{Dir.home}/.local/share/icons/hicolor/scalable/apps")
-    File.write("#{staged_path}/jetbrains-pycharm.desktop", <<~EOS)
+  preflight_steps do
+    run "/bin/sh",
+        args:  ["-c", "for f in */bin/*64.vmoptions; do printf -- '%s\\n' \"$1\" >> \"$f\"; done", "sh",
+                "-Dide.no.platform.update=true"],
+        chdir: "."
+    mkdir_p ".local/share/applications", base: :home
+    mkdir_p ".local/share/icons/hicolor/scalable/apps", base: :home
+    write_file "jetbrains-pycharm.desktop", <<~EOS
       [Desktop Entry]
       Version=1.0
       Name=PyCharm
       Comment=The Only Python IDE you need
-      Exec=#{HOMEBREW_PREFIX}/bin/pycharm %u
+      Exec={{HOMEBREW_PREFIX}}/bin/pycharm %u
       Icon=pycharm
       Type=Application
       Categories=Development;IDE;
@@ -54,8 +56,8 @@ cask "pycharm-linux" do
     EOS
   end
 
-  postflight do
-    system "/usr/bin/xdg-icon-resource", "forceupdate"
+  postflight_steps do
+    run "/usr/bin/xdg-icon-resource", args: ["forceupdate"]
   end
 
   zap trash: [
