@@ -35,7 +35,8 @@ cask "zed-linux" do
     copy "zed.app/share/icons/hicolor/512x512/apps/zed.png",
          ".local/share/icons/hicolor/512x512/apps/zed.png",
          target_base: :home
-    run "/usr/bin/xdg-icon-resource", args: ["forceupdate"]
+    touch ".local/share/icons/hicolor/.xdg-icon-resource-dummy", base: :home
+    remove ".local/share/icons/hicolor/.xdg-icon-resource-dummy", base: :home
   end
 
   uninstall_postflight_steps do

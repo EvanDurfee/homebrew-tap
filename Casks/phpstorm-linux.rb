@@ -57,7 +57,8 @@ cask "phpstorm-linux" do
   end
 
   postflight_steps do
-    run "/usr/bin/xdg-icon-resource", args: ["forceupdate"]
+    touch ".local/share/icons/hicolor/.xdg-icon-resource-dummy", base: :home
+    remove ".local/share/icons/hicolor/.xdg-icon-resource-dummy", base: :home
   end
 
   zap trash: [
