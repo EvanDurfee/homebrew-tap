@@ -12,6 +12,8 @@ cask "zed-linux" do
     strategy :github_latest
   end
 
+  depends_on linux: :any
+
   binary "zed.app/bin/zed"
 
   preflight_steps do
