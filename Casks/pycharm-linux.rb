@@ -2,9 +2,9 @@ cask "pycharm-linux" do
   arch arm: "-aarch64"
   os linux: "linux"
 
-  version "2026.1.2,261.24374.152"
-  sha256 arm64_linux:  "e6b4f25267afade04be6764f6bb16ea1d16159cae3490fbb4f58cc168ecffee3",
-         x86_64_linux: "91c775be16fb0859f9b18ebd456d88e131cadf337b0ce9f9d8ed187886561966"
+  version "2026.2.3,262.10968.92"
+  sha256 arm64_linux:  "c1ac6b7440f4d8946241d602220e9db9afac75f41831ca21dc5168cdf3689d0e",
+         x86_64_linux: "e8e4fbe4dab44390d09f681e059a316e692cabd24b2e11ce98ff76c8120fa313"
 
   url "https://download.jetbrains.com/python/pycharm-#{version.csv.first}#{arch}.tar.gz"
   name "PyCharm"
