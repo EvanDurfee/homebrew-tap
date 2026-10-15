@@ -1,8 +1,12 @@
 cask "zed-linux" do
-  version "1.22.0"
-  sha256 "5ce3991b34a8fad0a23625f5821cda601c7150a6cc69683c097b8d1b083abc50"
+  arch arm: "aarch64", intel: "x86_64"
+  os linux: "linux"
 
-  url "https://github.com/zed-industries/zed/releases/download/v#{version}/zed-linux-x86_64.tar.gz"
+  version "1.22.0"
+  sha256 arm64_linux:  "8b3c5d6e506056a9456ed33072081fd64db84ce47cdf34d4936442cc4f08394a",
+         x86_64_linux: "5ce3991b34a8fad0a23625f5821cda601c7150a6cc69683c097b8d1b083abc50"
+
+  url "https://github.com/zed-industries/zed/releases/download/v#{version}/zed-#{os}-#{arch}.tar.gz"
   name "Zed"
   desc "High-performance, multiplayer code editor"
   homepage "https://zed.dev/"
